@@ -8,6 +8,7 @@
   </div>
 </template>
 
+<!-- Single File Components (SFC) -->
 <script>
 import { ref } from "vue";
 
