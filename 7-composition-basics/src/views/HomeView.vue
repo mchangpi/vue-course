@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="flex flex-col items-center">
+    <h3>{{ counterTitle }}:</h3>
     <div class="mt-2 space-x-2 flex justify-center">
       <button @click="decreaseCounter" class="border-2 px-4">-</button>
       <span class="counter">{{ counter }}</span>
@@ -11,6 +12,8 @@
 <script setup>
 import { ref } from "vue";
 const counter = ref(0);
+const counterTitle = ref("My Counter");
+
 const decreaseCounter = () => {
   counter.value--;
 };
