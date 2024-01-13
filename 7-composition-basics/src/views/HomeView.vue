@@ -1,27 +1,31 @@
 <template>
-  <div class="home">
-    <div>
-      <button @click="decreaseCounter">-</button>
+  <div>
+    <div class="mt-2 space-x-2 flex justify-center">
+      <button @click="decreaseCounter" class="border-2 px-4">-</button>
       <span class="counter">{{ counter }}</span>
-      <button @click="increaseCounter">+</button>
+      <button @click="increaseCounter" class="border-2 px-4">+</button>
     </div>
   </div>
 </template>
 
-<!-- Single File Components (SFC) -->
+<script setup>
+import { ref } from "vue";
+const counter = ref(0);
+const decreaseCounter = () => {
+  counter.value--;
+};
+
+const increaseCounter = () => {
+  counter.value++;
+};
+</script>
+
+<!-- 
 <script>
 import { ref } from "vue";
 
 export default {
   setup() {
-    const counter = ref(0);
-    const decreaseCounter = () => {
-      counter.value--;
-    };
-
-    const increaseCounter = () => {
-      counter.value++;
-    };
 
     return {
       counter,
@@ -31,3 +35,4 @@ export default {
   },
 };
 </script>
+-->
