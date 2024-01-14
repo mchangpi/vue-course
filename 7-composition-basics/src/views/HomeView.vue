@@ -1,10 +1,14 @@
 <template>
-  <div class="flex flex-col items-center">
+  <div class="flex flex-col items-center gap-4">
     <h3>{{ counterTitle }}:</h3>
     <div class="mt-2 space-x-2 flex justify-center">
       <button @click="decreaseCounter" class="border-2 px-4">-</button>
       <span class="counter">{{ counter }}</span>
       <button @click="increaseCounter" class="border-2 px-4">+</button>
+    </div>
+    <div class="edit">
+      <h2>Edit Counter Title:</h2>
+      <input v-model="counterTitle" type="text" />
     </div>
   </div>
 </template>
