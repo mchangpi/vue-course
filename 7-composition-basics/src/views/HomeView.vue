@@ -1,5 +1,6 @@
 <template>
   <div class="flex flex-col items-center gap-4">
+    <h2>{{ appTitle }}</h2>
     <h3>{{ counterData.title }}</h3>
     <div class="mt-2 space-x-2 flex justify-center">
       <button @click="decreaseCounter" class="border-2 px-4">-</button>
@@ -16,11 +17,15 @@
 </template>
 
 <script setup>
-import { reactive } from "vue";
 /*
 const counter = ref(0);
 const counterTitle = ref("My Counter");
 */
+
+import { reactive } from "vue";
+
+const appTitle = "My Counter App";
+
 const counterData = reactive({
   count: 0,
   title: "My Counter",
