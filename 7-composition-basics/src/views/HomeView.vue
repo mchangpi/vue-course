@@ -33,7 +33,7 @@ const counter = ref(0);
 const counterTitle = ref("My Counter");
 */
 
-import { reactive, computed, watch } from "vue";
+import { reactive, computed, watch, onMounted, onUnmounted } from "vue";
 
 const appTitle = "My Counter App";
 
@@ -59,6 +59,14 @@ watch(
   }
 );
 
+onMounted(() => {
+  console.log("Home page: Mounted");
+});
+
+onUnmounted(() => {
+  console.log("Home page: Unmounted");
+});
+
 const decreaseCounter = (amount = 1, event = {}) => {
   // counter.value--;
   // console.log("event", event);
@@ -72,18 +80,15 @@ const increaseCounter = (amount = 1, event = {}) => {
 };
 </script>
 
-<!-- 
+<!--
 <script>
-import { ref } from "vue";
-
+/* Vue 2: Option API */
 export default {
-  setup() {
-
-    return {
-      counter,
-      decreaseCounter,
-      increaseCounter,
-    };
+  mounted() {
+    console.log("Home Page: mounted");
+  },
+  unmounted() {
+    console.log("Home Page: unmounted");
   },
 };
 </script>
