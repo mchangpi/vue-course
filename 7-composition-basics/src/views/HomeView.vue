@@ -33,7 +33,7 @@ const counter = ref(0);
 const counterTitle = ref("My Counter");
 */
 
-import { reactive, computed } from "vue";
+import { reactive, computed, watch } from "vue";
 
 const appTitle = "My Counter App";
 
@@ -49,6 +49,15 @@ const oddOrEven = computed(() => {
     return "odd";
   }
 });
+
+watch(
+  () => counterData.count,
+  (count, prevCount) => {
+    // console.log("new", newCount);
+    // console.log("old", oldCount);
+    if (count === 10) alert("Way to go, You made it to 10");
+  }
+);
 
 const decreaseCounter = (amount = 1, event = {}) => {
   // counter.value--;
