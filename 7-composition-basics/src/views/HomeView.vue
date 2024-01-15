@@ -33,7 +33,15 @@ const counter = ref(0);
 const counterTitle = ref("My Counter");
 */
 
-import { reactive, computed, watch, onMounted, onUnmounted } from "vue";
+import {
+  reactive,
+  computed,
+  watch,
+  onMounted,
+  onUnmounted,
+  onActivated,
+  onDeactivated,
+} from "vue";
 
 const appTitle = "My Counter App";
 
@@ -66,6 +74,19 @@ onMounted(() => {
 onUnmounted(() => {
   console.log("Home page: Unmounted");
 });
+
+/*
+// App.vue
+// <router-view v-slot="{ Component }"><keep-alive><component :is="Component" /> ...
+
+onActivated(() => {
+  console.log("Home page: onActivated");
+});
+
+onDeactivated(() => {
+  console.log("Home page: onDeactivated");
+});
+*/
 
 const decreaseCounter = (amount = 1, event = {}) => {
   // counter.value--;
