@@ -22,7 +22,7 @@
     <div class="edit">
       <h2>Edit Counter Title:</h2>
       <!-- <input v-model="counterTitle" type="text" /> -->
-      <input v-model="counterData.title" type="text" />
+      <input v-model="counterData.title" type="text" v-autofocus />
     </div>
   </div>
 </template>
@@ -65,8 +65,6 @@ const oddOrEven = computed(() => {
 watch(
   () => counterData.count,
   (count, prevCount) => {
-    // console.log("new", newCount);
-    // console.log("old", oldCount);
     if (count === 10) alert("Way to go, You made it to 10");
   }
 );
@@ -115,6 +113,15 @@ const decreaseCounter = (amount = 1, event = {}) => {
 const increaseCounter = (amount = 1, event = {}) => {
   // console.log("event", event);
   counterData.count += amount;
+};
+
+/* directives */
+
+const vAutofocus = {
+  mounted: (el) => {
+    console.log('"vAutofocus" is converted to "v-autofocus" in template');
+    el.focus();
+  },
 };
 </script>
 
