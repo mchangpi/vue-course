@@ -578,6 +578,15 @@ video {
   }
 }
 
+.m-4 {
+  margin: 1rem;
+}
+
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 .mt-2 {
   margin-top: 0.5rem;
 }
@@ -592,6 +601,10 @@ video {
 
 .flex-col {
   flex-direction: column;
+}
+
+.items-start {
+  align-items: flex-start;
 }
 
 .items-center {
@@ -618,6 +631,10 @@ video {
 
 .border-2 {
   border-width: 2px;
+}
+
+.p-2 {
+  padding: 0.5rem;
 }
 
 .px-4 {
