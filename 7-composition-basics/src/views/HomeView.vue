@@ -28,11 +28,6 @@
 </template>
 
 <script setup>
-/*
-const counter = ref(0);
-const counterTitle = ref("My Counter");
-*/
-
 import {
   reactive,
   computed,
@@ -47,8 +42,11 @@ import {
   onBeforeMount,
 } from "vue";
 
+import { vAutofocus } from "@/directives/vAutofocus";
+
 const appTitle = "My Counter App";
 
+/* const counter = ref(0); const counterTitle = ref("My Counter"); */
 const counterData = reactive({
   count: 0,
   title: "My Counter",
@@ -69,42 +67,6 @@ watch(
   }
 );
 
-onBeforeMount(() => {
-  console.log("Home page: Before Mount");
-});
-
-onMounted(() => {
-  console.log("Home page: Mounted");
-});
-
-onBeforeUnmount(() => {
-  console.log("Home page: Before Unmount");
-});
-
-onUnmounted(() => {
-  console.log("Home page: Unmounted");
-});
-
-onBeforeUpdate(() => {
-  console.log("Home page: Before Update");
-});
-
-onUpdated(() => {
-  console.log("Home page: Updated");
-});
-
-/*
-// App.vue
-// <router-view v-slot="{ Component }"><keep-alive><component :is="Component" /> ...
-*/
-onActivated(() => {
-  console.log("Home page: onActivated");
-});
-
-onDeactivated(() => {
-  console.log("Home page: onDeactivated");
-});
-
 const decreaseCounter = (amount = 1, event = {}) => {
   // console.log("event", event);
   counterData.count -= amount;
@@ -115,14 +77,43 @@ const increaseCounter = (amount = 1, event = {}) => {
   counterData.count += amount;
 };
 
-/* directives */
+if (false) {
+  onBeforeMount(() => {
+    console.log("Home page: Before Mount");
+  });
 
-const vAutofocus = {
-  mounted: (el) => {
-    console.log('"vAutofocus" is converted to "v-autofocus" in template');
-    el.focus();
-  },
-};
+  onMounted(() => {
+    console.log("Home page: Mounted");
+  });
+
+  onBeforeUnmount(() => {
+    console.log("Home page: Before Unmount");
+  });
+
+  onUnmounted(() => {
+    console.log("Home page: Unmounted");
+  });
+
+  onBeforeUpdate(() => {
+    console.log("Home page: Before Update");
+  });
+
+  onUpdated(() => {
+    console.log("Home page: Updated");
+  });
+
+  /*
+  // App.vue
+  <router-view v-slot="{ Component }"><keep-alive><component :is="Component" /> ...
+  */
+  onActivated(() => {
+    console.log("Home page: onActivated");
+  });
+
+  onDeactivated(() => {
+    console.log("Home page: onDeactivated");
+  });
+}
 </script>
 
 <!--
