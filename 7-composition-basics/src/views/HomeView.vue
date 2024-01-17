@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center gap-4">
-    <h2>{{ appTitle }}</h2>
+    <h2 ref="appTitleRef">{{ appTitle }}</h2>
     <h3>{{ counterData.title }}</h3>
     <div class="mt-2 space-x-2 flex justify-center">
       <button @click="decreaseCounter(2, $event)" class="border-2 px-4">
@@ -29,6 +29,7 @@
 
 <script setup>
 import {
+  ref,
   reactive,
   computed,
   watch,
@@ -45,6 +46,14 @@ import {
 import { vAutofocus } from "@/directives/vAutofocus";
 
 const appTitle = "My Counter App";
+/*
+  <h2 ref="appTitleRef">{{ appTitle }}</h2>
+*/
+const appTitleRef = ref(null);
+
+onMounted(() => {
+  console.log(appTitleRef.value.offsetWidth, "px wide");
+});
 
 /* const counter = ref(0); const counterTitle = ref("My Counter"); */
 const counterData = reactive({
