@@ -2,17 +2,19 @@
   <div class="posts flex flex-col items-center">
     <h1>Posts</h1>
     <ul>
-      <li>
-        <RouterLink to="/postDetail/1">Post 1</RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/postDetail/2">Post 2</RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/postDetail/3">Post 3</RouterLink>
+      <li v-for="post in posts" :key="post.id">
+        <RouterLink :to="`/postDetail/${post.id}`">{{ post.title }}</RouterLink>
       </li>
     </ul>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+
+const posts = ref([
+  { id: "1", title: "Post item 1" },
+  { id: "2", title: "Post item 2" },
+  { id: "3", title: "Post item 3" },
+]);
+</script>
