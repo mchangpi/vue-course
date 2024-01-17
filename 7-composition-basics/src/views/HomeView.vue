@@ -33,6 +33,7 @@ import {
   reactive,
   computed,
   watch,
+  nextTick,
   onMounted,
   onUnmounted,
   onActivated,
@@ -52,7 +53,12 @@ const appTitle = "My Counter App";
 const appTitleRef = ref(null);
 
 onMounted(() => {
-  console.log(appTitleRef.value.offsetWidth, "px wide");
+  console.log(
+    appTitleRef.value,
+    "is",
+    appTitleRef.value.offsetWidth,
+    "px wide"
+  );
 });
 
 /* const counter = ref(0); const counterTitle = ref("My Counter"); */
@@ -76,14 +82,18 @@ watch(
   }
 );
 
-const decreaseCounter = (amount = 1, event = {}) => {
+const decreaseCounter = async (amount = 1, event = {}) => {
   // console.log("event", event);
   counterData.count -= amount;
+  await nextTick();
+  console.log("Do something when updating(-) the counter DOM");
 };
 
-const increaseCounter = (amount = 1, event = {}) => {
+const increaseCounter = async (amount = 1, event = {}) => {
   // console.log("event", event);
   counterData.count += amount;
+  await nextTick();
+  console.log("Do something when updating(+) the counter DOM");
 };
 
 if (false) {
