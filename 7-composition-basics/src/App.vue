@@ -1,8 +1,8 @@
 <template>
   <nav>
     <RouterLink to="/">Home</RouterLink>
+    <RouterLink to="/modals">Modals</RouterLink>
     <RouterLink to="/posts">Posts</RouterLink>
-    <RouterLink to="/postDetail">Post Detail</RouterLink>
   </nav>
 
   <RouterView />
