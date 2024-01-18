@@ -1,29 +1,32 @@
-import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-// import HomeView from "../views/HomeView-28.vue";
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+/* load components beforehand */
+import ModalsView from '../views/ModalsView.vue';
+import PostsView from '../views/PostsView.vue';
+import PostDetailView from '../views/PostDetailView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
-      name: "home",
+      path: '/',
+      name: 'home',
       component: HomeView,
     },
     {
-      path: "/posts",
-      name: "posts",
-      component: () => import("../views/PostsView.vue"),
+      path: '/posts',
+      name: 'posts',
+      component: PostsView,
     },
     {
-      path: "/postDetail/:id",
-      name: "postDetail",
-      component: () => import("../views/PostDetailView.vue"),
+      path: '/postDetail/:id',
+      name: 'postDetail',
+      component: PostDetailView,
     },
     {
-      path: "/modals",
-      name: "modals",
-      component: () => import("../views/ModalsView.vue"),
+      path: '/modals',
+      name: 'modals',
+      component: ModalsView,
     },
   ],
 });
