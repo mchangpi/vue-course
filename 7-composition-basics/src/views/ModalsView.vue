@@ -1,8 +1,12 @@
 <template>
   <div class="modals sp flex flex-col items-center gap-2">
     <h1>Modals</h1>
-    <button @click="toggleModal" class="border-2 p-2">Show/Hide modal</button>
-    <Modal v-if="showModal" title="My Modal Title (via props)">
+    <button @click="toggleModal" class="border-2 p-2">Show modal</button>
+    <Modal
+      v-if="showModal"
+      @hideModal="() => (showModal = false)"
+      title="My Modal Title (via props)"
+    >
       <!-- <template #title>My Title (with shorthand #)</template> -->
       <!-- <template v-slot:title>My Title</template> -->
 
