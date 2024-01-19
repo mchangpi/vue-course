@@ -23,12 +23,12 @@ const props = defineProps({
 
 console.log(props.modelValue, props.title);
 
-const hideModelEvent = 'hideModal';
-
-const emit = defineEmits([hideModelEvent]);
+// const hideModelEvent = 'hideModal';
+const emit = defineEmits(['update:modelValue']);
 
 const hanndleHideModelEvent = () => {
-  emit(hideModelEvent);
+  // emit(hideModelEvent);
+  emit('update:modelValue', false);
 };
 
 /*
