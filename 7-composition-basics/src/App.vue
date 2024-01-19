@@ -1,20 +1,24 @@
 <template>
+  <div class="flex justify-end bg-slate-50 p-2 text-xl font-bold">
+    {{ userData.name }} @ {{ userData.username }}
+  </div>
   <nav>
     <RouterLink to="/">Home</RouterLink>
     <RouterLink to="/modals">Modals</RouterLink>
     <RouterLink to="/posts">Posts</RouterLink>
   </nav>
 
-  <RouterView />
-
-  <!--
-  <router-view v-slot="{ Component }">
-    <keep-alive>
-      <component :is="Component" />
-    </keep-alive>
-  </router-view>
-  -->
+  <RouterView v-bind:userData="userData" />
 </template>
+
+<script setup>
+import { reactive } from 'vue';
+
+const userData = reactive({
+  name: 'Milton',
+  username: 'miltonchang',
+});
+</script>
 
 <style scoped>
 header {

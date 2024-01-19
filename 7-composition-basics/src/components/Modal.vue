@@ -8,6 +8,8 @@
       <button @click="hanndleHideModelEvent" class="border-2 p-2">
         Hide modal
       </button>
+
+      <div>Username: {{ userData.username }}</div>
     </div>
   </Teleport>
 </template>
@@ -17,6 +19,9 @@
 const props = defineProps({
   modelValue: { type: Boolean, default: false },
   title: { type: String, default: 'No title specified' },
+  userData: {
+    type: Object,
+  },
 });
 
 console.log(props.modelValue, props.title);
