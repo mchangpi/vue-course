@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center gap-4">
     <h2>{{ appTitle }}</h2>
     <h3>{{ counterData.title }}</h3>
-    <div class="mt-2 space-x-2 flex justify-center">
+    <div class="mt-2 flex justify-center space-x-2">
       <button @click="decreaseCounter(2, $event)" class="border-2 px-4">
         --
       </button>
@@ -21,39 +21,38 @@
     <p>The counter is (computed) {{ oddOrEven }}</p>
     <div class="edit">
       <h2>Edit Counter Title:</h2>
-      <!-- <input v-model="counterTitle" type="text" /> -->
       <input v-model="counterData.title" type="text" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { reactive, computed, watch, onMounted } from "vue";
+import { reactive, computed, watch, onMounted } from 'vue';
 
-const appTitle = "My Counter App";
+const appTitle = 'My Counter App';
 
 onMounted(() => {
-  console.log("Don stuff related to App Title");
+  console.log('Don stuff related to App Title');
 });
 
 const counterData = reactive({
   count: 0,
-  title: "My Counter",
+  title: 'My Counter',
 });
 
 const oddOrEven = computed(() => {
   if (counterData.count % 2 === 0) {
-    return "even";
+    return 'even';
   } else {
-    return "odd";
+    return 'odd';
   }
 });
 
 watch(
   () => counterData.count,
   (count, prevCount) => {
-    if (count === 10) alert("Way to go, You made it to 10");
-  }
+    if (count === 10) alert('Way to go, You made it to 10');
+  },
 );
 
 const decreaseCounter = (amount = 1, event = {}) => {
@@ -67,7 +66,7 @@ const increaseCounter = (amount = 1, event = {}) => {
 };
 
 onMounted(() => {
-  console.log("Don stuff related to Counter");
+  console.log('Don stuff related to Counter');
 });
 </script>
 

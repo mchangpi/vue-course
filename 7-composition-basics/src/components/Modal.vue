@@ -1,11 +1,10 @@
 <template>
   <Teleport to=".modals-container">
-    <div class="z-10 bg-slate-100">
-      <!-- <h1><slot name="title" /></h1> -->
+    <div v-if="props.modelValue" class="z-10 bg-slate-100">
       <h1 class="text-xl">{{ props.title }}</h1>
+
       <slot />
 
-      <!-- <button @click="$emit('hideModal')" class="border-2 p-2"> -->
       <button @click="hanndleHideModelEvent" class="border-2 p-2">
         Hide modal
       </button>
@@ -16,10 +15,13 @@
 </template>
 
 <script setup>
+/* 'modelValue' prop is passed from parent to child with 'v-model' */
 const props = defineProps({
-  title: String,
-  default: 'No title specified',
+  modelValue: { type: Boolean, default: false },
+  title: { type: String, default: 'No title specified' },
 });
+
+console.log(props.modelValue, props.title);
 
 const hideModelEvent = 'hideModal';
 

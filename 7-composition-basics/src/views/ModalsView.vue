@@ -2,9 +2,10 @@
   <div class="modals sp flex flex-col items-center gap-2">
     <h1>Modals</h1>
     <button @click="toggleModal" class="border-2 p-2">Show modal</button>
+    <!-- v-model pass showModal as modelValue to <Modal> -->
     <Modal
-      v-if="showModal"
-      @hideModal="() => (showModal = false)"
+      v-model="showModal"
+      @hideModal="handleHideModalEvent"
       title="My Modal Title (via props)"
     >
       <!-- <template #title>My Title (with shorthand #)</template> -->
@@ -29,5 +30,10 @@ const showModal = ref(false);
 const toggleModal = (e) => {
   // console.log(e.target);
   showModal.value = !showModal.value;
+};
+
+const handleHideModalEvent = () => {
+  console.log('accept hideModal event');
+  showModal.value = false;
 };
 </script>

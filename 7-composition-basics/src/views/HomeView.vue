@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center gap-4">
     <h2 ref="appTitleRef">{{ appTitle }}</h2>
     <h3>{{ counterData.title }}</h3>
-    <div class="mt-2 space-x-2 flex justify-center">
+    <div class="mt-2 flex justify-center space-x-2">
       <button @click="decreaseCounter(2, $event)" class="border-2 px-4">
         --
       </button>
@@ -21,7 +21,6 @@
     <p>The counter is (computed) {{ oddOrEven }}</p>
     <div class="edit">
       <h2>Edit Counter Title:</h2>
-      <!-- <input v-model="counterTitle" type="text" /> -->
       <input v-model="counterData.title" type="text" v-autofocus />
     </div>
   </div>
@@ -42,11 +41,11 @@ import {
   onUpdated,
   onBeforeUnmount,
   onBeforeMount,
-} from "vue";
+} from 'vue';
 
-import { vAutofocus } from "@/directives/vAutofocus";
+import { vAutofocus } from '@/directives/vAutofocus';
 
-const appTitle = "My Counter App";
+const appTitle = 'My Counter App';
 /*
   <h2 ref="appTitleRef">{{ appTitle }}</h2>
 */
@@ -55,70 +54,70 @@ const appTitleRef = ref(null);
 onMounted(() => {
   console.log(
     appTitleRef.value,
-    "is",
+    'is',
     appTitleRef.value.offsetWidth,
-    "px wide"
+    'px wide',
   );
 });
 
 /* const counter = ref(0); const counterTitle = ref("My Counter"); */
 const counterData = reactive({
   count: 0,
-  title: "My Counter",
+  title: 'My Counter',
 });
 
 const oddOrEven = computed(() => {
   if (counterData.count % 2 === 0) {
-    return "even";
+    return 'even';
   } else {
-    return "odd";
+    return 'odd';
   }
 });
 
 watch(
   () => counterData.count,
   (count, prevCount) => {
-    if (count === 10) alert("Way to go, You made it to 10");
-  }
+    if (count === 10) alert('Way to go, You made it to 10');
+  },
 );
 
 const decreaseCounter = async (amount = 1, event = {}) => {
   // console.log("event", event);
   counterData.count -= amount;
   await nextTick();
-  console.log("Do something when updating(-) the counter DOM");
+  console.log('Do something when updating(-) the counter DOM');
 };
 
 const increaseCounter = async (amount = 1, event = {}) => {
   // console.log("event", event);
   counterData.count += amount;
   await nextTick();
-  console.log("Do something when updating(+) the counter DOM");
+  console.log('Do something when updating(+) the counter DOM');
 };
 
 if (false) {
   onBeforeMount(() => {
-    console.log("Home page: Before Mount");
+    console.log('Home page: Before Mount');
   });
 
   onMounted(() => {
-    console.log("Home page: Mounted");
+    console.log('Home page: Mounted');
   });
 
   onBeforeUnmount(() => {
-    console.log("Home page: Before Unmount");
+    console.log('Home page: Before Unmount');
   });
 
   onUnmounted(() => {
-    console.log("Home page: Unmounted");
+    console.log('Home page: Unmounted');
   });
 
   onBeforeUpdate(() => {
-    console.log("Home page: Before Update");
+    console.log('Home page: Before Update');
   });
 
   onUpdated(() => {
-    console.log("Home page: Updated");
+    console.log('Home page: Updated');
   });
 
   /*
@@ -126,11 +125,11 @@ if (false) {
   <router-view v-slot="{ Component }"><keep-alive><component :is="Component" /> ...
   */
   onActivated(() => {
-    console.log("Home page: onActivated");
+    console.log('Home page: onActivated');
   });
 
   onDeactivated(() => {
-    console.log("Home page: onDeactivated");
+    console.log('Home page: onDeactivated');
   });
 }
 </script>
