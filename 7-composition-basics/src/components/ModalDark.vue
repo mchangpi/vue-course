@@ -1,7 +1,8 @@
 <template>
   <Teleport to=".modals-container">
-    <div v-if="props.modelValue" class="z-10 bg-white">
-      <h1 class="text-xl">{{ props.title }}</h1>
+    <div v-if="props.modelValue" class="z-10 bg-slate-500 text-cyan-50">
+      <!-- <h1 class="text-xl">{{ props.title }}</h1> -->
+      <h1 class="text-xl">Dark Modal</h1>
 
       <slot />
 
