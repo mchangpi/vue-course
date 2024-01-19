@@ -8,16 +8,19 @@
     <RouterLink to="/posts">Posts</RouterLink>
   </nav>
 
-  <RouterView v-bind:userData="userData" />
+  <RouterView />
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { reactive, provide } from 'vue';
 
 const userData = reactive({
   name: 'Milton',
   username: 'miltonchang',
 });
+
+/* userData is available to all children */
+provide('userData', userData);
 </script>
 
 <style scoped>

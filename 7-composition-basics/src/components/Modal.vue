@@ -8,27 +8,28 @@
       <button @click="hanndleHideModelEvent" class="border-2 p-2">
         Hide modal
       </button>
-
-      <div>Username: {{ userData.username }}</div>
+      <div>Injected Username: {{ userData.username }}</div>
     </div>
   </Teleport>
 </template>
 
 <script setup>
-/* 'modelValue' prop is passed from parent to child with 'v-model' */
+import { inject } from 'vue';
+
+/* 'v-model' pass modelValue prop from parent to child */
 const props = defineProps({
   modelValue: { type: Boolean, default: false },
   title: { type: String, default: 'No title specified' },
-  userData: {
-    type: Object,
-  },
 });
 
-console.log(props.modelValue, props.title);
+// console.log(props.modelValue, props.title);
 
 const emit = defineEmits(['update:modelValue']);
 
+/* trigger 'update:modelValue' event from child to parent */
 const hanndleHideModelEvent = () => {
   emit('update:modelValue', false);
 };
+
+const userData = inject('userData');
 </script>

@@ -15,7 +15,6 @@
     <component
       v-model="showModal"
       v-bind:is="showDarkModal ? ModalDark : Modal"
-      v-bind:userData="userData"
       title="My Modal Title (via props)"
     >
       <p>
@@ -42,6 +41,4 @@ const toggleModal = (e) => {
   // console.log(e.target);
   showModal.value = !showModal.value;
 };
-
-const props = defineProps({ userData: { type: Object } });
 </script>
