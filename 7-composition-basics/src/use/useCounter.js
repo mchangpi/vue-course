@@ -1,13 +1,13 @@
 import { reactive, computed, watch, nextTick } from 'vue';
 
+/* global counter data */
+const counterData = reactive({
+  count: 0,
+  title: 'My Counter',
+});
+
 /* composable */
 export function useCounter() {
-  /* const counter = ref(0); const counterTitle = ref("My Counter"); */
-  const counterData = reactive({
-    count: 0,
-    title: 'My Counter',
-  });
-
   const oddOrEven = computed(() => {
     if (counterData.count % 2 === 0) {
       return 'even';
