@@ -9,11 +9,11 @@
 
     <div>
       <button
-        v-on:click="() => increaseCounter(1)"
+        v-on:click="() => {}"
         v-bind:class="{ 'bg-yellow-200': oddOrEven === 'odd' }"
         class="border-2 border-black bg-pink-200 p-2 text-4xl text-black"
       >
-        {{ counterData.title + ': ' + counterData.count }}
+        {{ counter.title + ': ' + counter.count }}
       </button>
     </div>
   </div>
@@ -21,10 +21,9 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useCounter } from '@/use/useCounter';
+import { useCounterStore } from '@/stores/counter';
 
-const { counterData, oddOrEven, increaseCounter, decreaseCounter } =
-  useCounter();
+const counter = useCounterStore();
 
 const posts = ref([
   { id: '1', title: 'Post item 1' },

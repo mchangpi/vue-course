@@ -1,27 +1,18 @@
 <template>
   <div class="flex flex-col items-center gap-4">
     <h2 ref="appTitleRef">{{ appTitle }}</h2>
-    <h3>{{ counterData.title }}</h3>
+    <h3>{{ counter.title }}</h3>
     <div class="mt-2 flex justify-center space-x-2">
-      <button @click="decreaseCounter(2, $event)" class="border-2 px-4">
-        --
-      </button>
-      <button @click="decreaseCounter(1, $event)" class="border-2 px-4">
-        -
-      </button>
-      <!-- <span class="counter">{{ counter }}</span> -->
-      <span class="counter">{{ counterData.count }}</span>
-      <button @click="increaseCounter(1, $event)" class="border-2 px-4">
-        +
-      </button>
-      <button @click="increaseCounter(2, $event)" class="border-2 px-4">
-        ++
-      </button>
+      <button @click="() => {}" class="border-2 px-4">--</button>
+      <button @click="() => {}" class="border-2 px-4">-</button>
+      <span>{{ counter.count }}</span>
+      <button @click="() => {}" class="border-2 px-4">+</button>
+      <button @click="() => {}" class="border-2 px-4">++</button>
     </div>
-    <p>The counter is (computed) {{ oddOrEven }}</p>
+    <p>The counter is (computed) odd/even</p>
     <div>
       <h2>Edit Counter Title:</h2>
-      <input v-model="counterData.title" type="text" v-autofocus />
+      <input v-model="counter.title" type="text" v-autofocus />
     </div>
   </div>
 </template>
@@ -38,11 +29,10 @@ import {
   onBeforeUnmount,
   onBeforeMount,
 } from 'vue';
-import { useCounter } from '@/use/useCounter';
+import { useCounterStore } from '@/stores/counter';
 import { vAutofocus } from '@/directives/vAutofocus';
 
-const { counterData, oddOrEven, increaseCounter, decreaseCounter } =
-  useCounter();
+const counter = useCounterStore();
 
 const appTitle = 'My Counter App';
 
@@ -55,6 +45,10 @@ onMounted(() => {
 });
 
 if (false) {
+  testLifeCycleHooks();
+}
+
+function testLifeCycleHooks() {
   onBeforeMount(() => {
     console.log('Home page: Before Mount');
   });
@@ -79,10 +73,6 @@ if (false) {
     console.log('Home page: Updated');
   });
 
-  /*
-  // App.vue
-  <router-view v-slot="{ Component }"><keep-alive><component :is="Component" /> ...
-  */
   onActivated(() => {
     console.log('Home page: onActivated');
   });
