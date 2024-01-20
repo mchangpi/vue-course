@@ -1,6 +1,9 @@
 <template>
   <div class="flex justify-end bg-slate-50 p-2 text-xl font-bold">
-    {{ userData.name }} @ {{ userData.username }}
+    {{ userData.name }}@{{ userData.username }} &nbsp; | &nbsp;
+    <span :class="[online ? 'text-green-500' : 'text-gray-300']">
+      {{ online ? 'Online' : 'Offline' }}
+    </span>
   </div>
   <nav>
     <RouterLink to="/">Home</RouterLink>
@@ -13,6 +16,7 @@
 
 <script setup>
 import { reactive, provide } from 'vue';
+import { useOnline } from '@vueuse/core';
 
 const userData = reactive({
   name: 'Milton',
@@ -21,6 +25,9 @@ const userData = reactive({
 
 /* userData is available to all children */
 provide('userData', userData);
+
+const online = useOnline();
+console.log('online: ', online);
 </script>
 
 <style scoped>
