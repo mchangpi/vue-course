@@ -29,10 +29,6 @@
 <script setup>
 import {
   ref,
-  reactive,
-  computed,
-  watch,
-  nextTick,
   onMounted,
   onUnmounted,
   onActivated,
@@ -42,58 +38,21 @@ import {
   onBeforeUnmount,
   onBeforeMount,
 } from 'vue';
-
+import { useCounter } from '@/use/useCounter';
 import { vAutofocus } from '@/directives/vAutofocus';
 
+const { counterData, oddOrEven, increaseCounter, decreaseCounter } =
+  useCounter();
+
 const appTitle = 'My Counter App';
-/*
-  <h2 ref="appTitleRef">{{ appTitle }}</h2>
-*/
+
 const appTitleRef = ref(null);
 
 onMounted(() => {
   console.log(
-    appTitleRef.value,
-    'is',
-    appTitleRef.value.offsetWidth,
-    'px wide',
+    appTitleRef.value + ' is ' + appTitleRef.value.offsetWidth + ' px wide',
   );
 });
-
-/* const counter = ref(0); const counterTitle = ref("My Counter"); */
-const counterData = reactive({
-  count: 0,
-  title: 'My Counter',
-});
-
-const oddOrEven = computed(() => {
-  if (counterData.count % 2 === 0) {
-    return 'even';
-  } else {
-    return 'odd';
-  }
-});
-
-watch(
-  () => counterData.count,
-  (count, prevCount) => {
-    if (count === 10) alert('Way to go, You made it to 10');
-  },
-);
-
-const decreaseCounter = async (amount = 1, event = {}) => {
-  // console.log("event", event);
-  counterData.count -= amount;
-  await nextTick();
-  console.log('Do something when updating(-) the counter DOM');
-};
-
-const increaseCounter = async (amount = 1, event = {}) => {
-  // console.log("event", event);
-  counterData.count += amount;
-  await nextTick();
-  console.log('Do something when updating(+) the counter DOM');
-};
 
 if (false) {
   onBeforeMount(() => {
