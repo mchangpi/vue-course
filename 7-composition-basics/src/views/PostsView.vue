@@ -9,9 +9,11 @@
 
     <div>
       <button
-        v-on:click="() => {}"
-        v-bind:class="{ 'bg-yellow-200': oddOrEven === 'odd' }"
-        class="border-2 border-black bg-pink-200 p-2 text-4xl text-black"
+        v-on:click="() => counter.increaseCounter(1)"
+        v-bind:class="[
+          counter.oddOrEven === 'odd' ? 'bg-yellow-200' : 'bg-pink-200',
+        ]"
+        class="border-2 border-black p-2 text-4xl text-black"
       >
         {{ counter.title + ': ' + counter.count }}
       </button>

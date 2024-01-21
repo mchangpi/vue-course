@@ -17,7 +17,7 @@
         ++
       </button>
     </div>
-    <p>The counter is (computed) odd/even</p>
+    <p>The counter is (computed): {{ counter.oddOrEven }}</p>
     <div>
       <h2>Edit Counter Title:</h2>
       <input v-model="counter.title" type="text" v-autofocus />
