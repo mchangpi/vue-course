@@ -14,5 +14,5 @@
 </template>
 
 <script setup>
-import { vAutofocus } from "@/directives/vAutofocus";
+import { vAutofocus } from '@/directives/vAutofocus';
 </script>
