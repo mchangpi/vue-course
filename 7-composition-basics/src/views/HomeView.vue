@@ -3,11 +3,19 @@
     <h2 ref="appTitleRef">{{ appTitle }}</h2>
     <h3>{{ counter.title }}</h3>
     <div class="mt-2 flex justify-center space-x-2">
-      <button @click="() => {}" class="border-2 px-4">--</button>
-      <button @click="() => {}" class="border-2 px-4">-</button>
+      <button @click="() => counter.decreaseCounter(2)" class="border-2 px-4">
+        --
+      </button>
+      <button @click="() => counter.decreaseCounter(1)" class="border-2 px-4">
+        -
+      </button>
       <span>{{ counter.count }}</span>
-      <button @click="() => {}" class="border-2 px-4">+</button>
-      <button @click="() => {}" class="border-2 px-4">++</button>
+      <button @click="() => counter.increaseCounter(1)" class="border-2 px-4">
+        +
+      </button>
+      <button @click="() => counter.increaseCounter(2)" class="border-2 px-4">
+        ++
+      </button>
     </div>
     <p>The counter is (computed) odd/even</p>
     <div>
