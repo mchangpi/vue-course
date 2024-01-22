@@ -1,10 +1,10 @@
 <template>
-  <nav>
-    <RouterLink to="/">Notes</RouterLink> &nbsp; | &nbsp;
-    <RouterLink to="/stats">Stats</RouterLink>
-  </nav>
-
+  <NavBar />
   <RouterView />
 </template>
 
-<script setup></script>
+<script setup>
+import NavBar from '@/components/layout/NavBar.vue';
+</script>
+
+<!-- <style src="./style.css"></style> -->
