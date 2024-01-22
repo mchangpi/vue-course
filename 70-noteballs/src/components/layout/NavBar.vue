@@ -1,6 +1,4 @@
 <template>
-  <div>Nav Bar</div>
-
   <nav class="border-gray-200 bg-white">
     <div
       class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4"

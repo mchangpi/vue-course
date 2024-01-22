@@ -1,6 +1,6 @@
 <template>
   <NavBar />
-  <RouterView />
+  <RouterView class="absolute left-0 top-[100px]" />
 </template>
 
 <script setup>
