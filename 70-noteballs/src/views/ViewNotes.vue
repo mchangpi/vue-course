@@ -8,16 +8,20 @@
         >New Note</label
       >
       <textarea
-        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+        ref="newNoteRef"
+        v-model="newNoteContent"
         placeholder="Add a new note"
         required
+        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
       />
     </div>
     <button
       type="submit"
+      @click="handleAddNote"
+      v-bind:disabled="!newNoteContent.trim()"
       class="m-2 w-1/2 rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
     >
-      Submit
+      Add Note
     </button>
   </form>
 
@@ -55,4 +59,17 @@ const initNoteArr = [
 ];
 
 const noteArr = ref(initNoteArr);
+const newNoteRef = ref(null);
+const newNoteContent = ref('');
+
+const handleAddNote = () => {
+  const newNote = {
+    id: new Date().getTime(),
+    content: newNoteContent.value,
+  };
+  noteArr.value.unshift(newNote);
+
+  newNoteContent.value = '';
+  newNoteRef.value.focus();
+};
 </script>
