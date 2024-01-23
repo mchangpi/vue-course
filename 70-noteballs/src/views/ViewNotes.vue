@@ -25,16 +25,12 @@
 
   <!-- https://flowbite.com/docs/components/card/#user-profile-card -->
   <div
-    v-for="i in 3"
-    class="mx-auto my-2 max-w-5xl rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800"
+    v-for="note of noteArr"
+    class="mx-auto my-2 max-w-5xl rounded-lg border border-gray-200 bg-white shadow"
   >
     <div class="flex flex-col items-start p-4">
-      <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-        Bonnie Green
-      </h5>
-      <span class="text-sm text-gray-500 dark:text-gray-400"
-        >Visual Designer</span
-      >
+      <!-- <h5 class="mb-1 text-xl font-medium text-gray-900">Title</h5> -->
+      <span class="text-xl text-gray-500">{{ note.content }}</span>
       <div class="mt-4 flex w-full md:mt-6">
         <a
           href="#"
@@ -50,3 +46,13 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref } from 'vue';
+const initNoteArr = [
+  { id: 1, content: 'note content 1' },
+  { id: 2, content: 'note content 2' },
+];
+
+const noteArr = ref(initNoteArr);
+</script>
