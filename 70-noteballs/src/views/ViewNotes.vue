@@ -4,7 +4,7 @@
     class="z-0 mx-auto mb-2 flex max-w-5xl flex-col items-end rounded-md bg-cyan-300 p-4"
   >
     <div class="mb-2 w-full">
-      <label for="email" class="mb-2 block text-lg font-medium text-gray-900"
+      <label class="mb-2 block text-lg font-medium text-gray-900"
         >New Note</label
       >
       <textarea
@@ -28,7 +28,7 @@
   <hr class="m-4 border-2 border-dotted" />
 
   <Note
-    v-for="note of noteArr"
+    v-for="note of noteStore.noteArr"
     :key="note.id"
     v-bind:note="note"
     v-on:deleteNote="handleDeleteNote"
@@ -38,6 +38,7 @@
 <script setup>
 import { ref } from 'vue';
 import Note from '@/components/notes/Note.vue';
+import { useNoteStore } from '@/stores/note';
 
 const initNoteArr = [
   { id: 1, content: 'note content 1' },
@@ -47,6 +48,8 @@ const initNoteArr = [
 const noteArr = ref(initNoteArr);
 const newNoteRef = ref(null);
 const newNoteContent = ref('');
+
+const noteStore = useNoteStore();
 
 const handleAddNote = () => {
   const newNote = {
