@@ -19,7 +19,7 @@
       type="submit"
       @click="handleAddNote"
       v-bind:disabled="!newNoteContent.trim()"
-      class="m-2 w-1/2 rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+      class="m-2 w-1/2 rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
     >
       Add Note
     </button>
@@ -27,32 +27,13 @@
 
   <hr class="m-4 border-2 border-dotted" />
 
-  <!-- https://flowbite.com/docs/components/card/#user-profile-card -->
-  <div
-    v-for="note of noteArr"
-    class="mx-auto my-2 max-w-5xl rounded-lg border border-gray-200 bg-white shadow"
-  >
-    <div class="flex flex-col items-start p-4">
-      <!-- <h5 class="mb-1 text-xl font-medium text-gray-900">Title</h5> -->
-      <span class="text-xl text-gray-500">{{ note.content }}</span>
-      <div class="mt-4 flex w-full md:mt-6">
-        <a
-          href="#"
-          class="w-1/2 items-center rounded-lg bg-blue-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
-          >Edit</a
-        >
-        <a
-          href="#"
-          class="ms-2 w-1/2 items-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200"
-          >Delete</a
-        >
-      </div>
-    </div>
-  </div>
+  <Note v-for="note of noteArr" :key="note.id" v-bind:note="note" />
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import Note from '@/components/notes/Note.vue';
+
 const initNoteArr = [
   { id: 1, content: 'note content 1' },
   { id: 2, content: 'note content 2' },
