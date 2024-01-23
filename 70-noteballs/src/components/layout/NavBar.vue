@@ -34,17 +34,14 @@
           />
         </svg>
       </button>
-      <div
-        class="md: w-3/4 md:block md:w-auto"
-        :class="{ hidden: !isShowMenu }"
-      >
+      <div class="w-full md:block md:w-auto" :class="{ hidden: !isShowMenu }">
         <ul
-          class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0 rtl:space-x-reverse"
+          class="mt-4 flex flex-col rounded-lg bg-gray-50 p-4 font-medium md:mt-0 md:flex-row md:space-x-1 md:border-0 md:p-0 rtl:space-x-reverse"
         >
           <li @click.prevent="() => handleSetMenuIdx(0)">
             <RouterLink
               to="/"
-              class="block rounded px-3 py-2 text-center md:border-0 md:px-4"
+              class="md:border-1 block rounded border border-gray-300 px-3 py-2 text-center md:px-4"
               :class="getClassArr(0)"
               >Notes</RouterLink
             >
@@ -52,7 +49,7 @@
           <li @click.prevent="() => handleSetMenuIdx(1)">
             <RouterLink
               to="/stats"
-              class="block rounded px-3 py-2 text-center md:border-0 md:px-4"
+              class="md:border-1 block rounded border border-gray-300 px-3 py-2 text-center md:px-4"
               :class="getClassArr(1)"
               >Stats</RouterLink
             >
