@@ -1,6 +1,9 @@
 <template>
   <NavBar />
-  <RouterView class="absolute left-0 top-[100px]" />
+
+  <div class="container px-2 py-4">
+    <RouterView class="absolute left-[20px] top-[100px]" />
+  </div>
 </template>
 
 <script setup>

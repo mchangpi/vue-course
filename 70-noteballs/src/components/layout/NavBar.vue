@@ -1,7 +1,7 @@
 <template>
-  <nav class="border-gray-200 bg-white">
+  <nav class="border-gray-200 bg-cyan-200">
     <div
-      class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4"
+      class="container mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-2"
     >
       <a
         href="https://www.cakeresume.com/mchangpi"
@@ -34,27 +34,28 @@
           />
         </svg>
       </button>
-      <div class="w-full md:block md:w-auto" :class="{ hidden: !isShowMenu }">
+      <div
+        class="md: w-3/4 md:block md:w-auto"
+        :class="{ hidden: !isShowMenu }"
+      >
         <ul
           class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0 rtl:space-x-reverse"
         >
-          <li @click="() => handleSetNavIdx(0)">
+          <li @click.prevent="() => handleSetMenuIdx(0)">
             <RouterLink
               to="/"
-              class="block rounded px-3 py-2 md:border-0 md:px-4"
+              class="block rounded px-3 py-2 text-center md:border-0 md:px-4"
               :class="getClassArr(0)"
               >Notes</RouterLink
             >
-            <!-- :class="[activeIdx === 0 ? 'text-white' : '']" -->
           </li>
-          <li @click="() => handleSetNavIdx(1)">
+          <li @click.prevent="() => handleSetMenuIdx(1)">
             <RouterLink
               to="/stats"
-              class="block rounded px-3 py-2 md:border-0 md:px-4"
+              class="block rounded px-3 py-2 text-center md:border-0 md:px-4"
               :class="getClassArr(1)"
               >Stats</RouterLink
             >
-            <!-- :class="[activeIdx === 1 ? 'text-white' : '']" -->
           </li>
         </ul>
       </div>
@@ -63,7 +64,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 // import { FwbNavbar } from 'flowbite-vue';
 
 const isShowMenu = ref(false);
@@ -74,7 +75,7 @@ const handleShowMenu = () => {
   isShowMenu.value = !isShowMenu.value;
 };
 
-const handleSetNavIdx = (idx) => {
+const handleSetMenuIdx = (idx) => {
   // console.log('nav idx', idx);
   activeIdx.value = idx;
 };
