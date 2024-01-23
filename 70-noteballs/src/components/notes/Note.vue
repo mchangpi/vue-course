@@ -18,6 +18,7 @@
           >Edit</a
         >
         <a
+          @click.prevent="$emit('deleteNote', note.id)"
           href="#"
           class="ms-2 w-1/2 items-center rounded-lg border border-gray-300 bg-rose-300 px-4 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200"
           >Delete</a
@@ -33,6 +34,7 @@ import { computed } from 'vue';
 const { note } = defineProps({
   note: { type: Object, required: true },
 });
+const emit = defineEmits(['deleteNote']);
 
 const contentLength = computed(() => {
   const length = note.content.length;

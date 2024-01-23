@@ -27,7 +27,12 @@
 
   <hr class="m-4 border-2 border-dotted" />
 
-  <Note v-for="note of noteArr" :key="note.id" v-bind:note="note" />
+  <Note
+    v-for="note of noteArr"
+    :key="note.id"
+    v-bind:note="note"
+    v-on:deleteNote="handleDeleteNote"
+  />
 </template>
 
 <script setup>
@@ -52,5 +57,10 @@ const handleAddNote = () => {
 
   newNoteContent.value = '';
   newNoteRef.value.focus();
+};
+
+const handleDeleteNote = (id) => {
+  console.log('del note id', id);
+  noteArr.value = noteArr.value.filter((note) => note.id !== id);
 };
 </script>
