@@ -1,7 +1,7 @@
 <template>
-  <nav class="border-gray-200 bg-cyan-200">
+  <nav class="w-full border-gray-200 bg-cyan-200">
     <div
-      class="container mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-2"
+      class="container mx-auto flex flex-wrap items-center justify-between px-2"
     >
       <a
         href="https://www.cakeresume.com/mchangpi"
@@ -9,7 +9,7 @@
         class="flex items-center space-x-3 rtl:space-x-reverse"
       >
         <span class="self-center whitespace-nowrap text-2xl font-semibold"
-          >Noteballs Demo</span
+          >Note Demo</span
         >
       </a>
       <button
@@ -38,7 +38,7 @@
         <ul
           class="mt-4 flex flex-col rounded-lg bg-gray-50 p-4 font-medium md:mt-0 md:flex-row md:space-x-1 md:border-0 md:p-0 rtl:space-x-reverse"
         >
-          <li @click.prevent="() => handleSetMenuIdx(0)">
+          <li @click="() => handleSetMenuIdx(0)">
             <RouterLink
               to="/"
               class="md:border-1 block rounded border border-gray-300 px-3 py-2 text-center md:px-4"
@@ -46,7 +46,7 @@
               >Notes</RouterLink
             >
           </li>
-          <li @click.prevent="() => handleSetMenuIdx(1)">
+          <li @click="() => handleSetMenuIdx(1)">
             <RouterLink
               to="/stats"
               class="md:border-1 block rounded border border-gray-300 px-3 py-2 text-center md:px-4"
@@ -73,7 +73,7 @@ const handleShowMenu = () => {
 };
 
 const handleSetMenuIdx = (idx) => {
-  // console.log('nav idx', idx);
+  console.log('nav idx', idx);
   activeIdx.value = idx;
 };
 

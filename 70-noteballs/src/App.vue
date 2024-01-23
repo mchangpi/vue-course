@@ -1,8 +1,8 @@
 <template>
   <NavBar />
 
-  <div class="container px-2 py-4">
-    <RouterView class="absolute left-[20px] top-[100px]" />
+  <div class="absolute top-20 -z-10 w-full px-2 py-2">
+    <RouterView />
   </div>
 </template>
 
