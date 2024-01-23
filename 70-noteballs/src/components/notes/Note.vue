@@ -5,7 +5,12 @@
   >
     <div class="flex flex-col items-start p-4">
       <!-- <h5 class="mb-1 text-xl font-medium text-gray-900">Title</h5> -->
-      <span class="text-xl text-gray-500">{{ note.content }}</span>
+      <div class="text-xl text-gray-800">
+        {{ note.content }}
+      </div>
+      <div class="w-full text-right text-gray-400">
+        <small>{{ contentLength }} </small>
+      </div>
       <div class="mt-4 flex w-full md:mt-6">
         <a
           href="#"
@@ -23,7 +28,16 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
+
 const { note } = defineProps({
   note: { type: Object, required: true },
+});
+
+const contentLength = computed(() => {
+  const length = note.content.length;
+
+  if (length > 1) return length + ' chars';
+  else return length + ' char';
 });
 </script>
