@@ -15,13 +15,13 @@
         <RouterLink
           :to="`/edit/${note.id}`"
           href="#"
-          class="w-1/2 items-center rounded-lg bg-sky-300 px-4 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          class="w-1/2 items-center rounded-lg bg-sky-300 px-4 py-2 text-center text-sm font-medium text-white hover:bg-sky-500 focus:outline-none focus:ring-4 focus:ring-blue-300"
           >Edit</RouterLink
         >
         <a
           @click.prevent="() => noteStore.deleteNoteWithId(note.id)"
           href="#"
-          class="ms-2 w-1/2 items-center rounded-lg border border-gray-300 bg-rose-300 px-4 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200"
+          class="ms-2 w-1/2 items-center rounded-lg border border-gray-300 bg-rose-300 px-4 py-2 text-center text-sm font-medium text-gray-900 hover:bg-rose-500 focus:outline-none focus:ring-4 focus:ring-gray-200"
           >Delete</a
         >
         <!-- @click.prevent="$emit('deleteNote', note.id)" -->

@@ -5,14 +5,14 @@
   >
     <div class="mb-2 w-full">
       <label class="mb-2 block text-lg font-medium text-gray-900"
-        >New Note</label
-      >
+        >{{ title }}
+      </label>
       <textarea
         v-model="modelProps"
         ref="textareaRef"
         required
         placeholder="Add a new note"
-        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-base text-gray-900 focus:border-blue-500 focus:ring-blue-500"
       />
     </div>
     <slot name="buttons" />
@@ -22,6 +22,7 @@
 <script setup>
 import { ref } from 'vue';
 const modelProps = defineModel({ type: String });
+const title = modelProps.value.trim().length > 0 ? 'Edit Note' : 'Add Note';
 
 const textareaRef = ref(null);
 
