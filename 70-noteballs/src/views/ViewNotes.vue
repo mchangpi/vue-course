@@ -27,12 +27,8 @@
 
   <hr class="m-4 border-2 border-dotted" />
 
-  <Note
-    v-for="note of noteStore.noteArr"
-    :key="note.id"
-    v-bind:note="note"
-    v-on:deleteNote="handleDeleteNote"
-  />
+  <Note v-for="note of noteStore.noteArr" :key="note.id" v-bind:note="note" />
+  <!-- v-on:deleteNote="(id) => noteStore.deleteNoteWithId(id)" -->
 </template>
 
 <script setup>
@@ -40,12 +36,6 @@ import { ref } from 'vue';
 import Note from '@/components/notes/Note.vue';
 import { useNoteStore } from '@/stores/note';
 
-const initNoteArr = [
-  { id: 1, content: 'note content 1' },
-  { id: 2, content: 'note content 2' },
-];
-
-const noteArr = ref(initNoteArr);
 const newNoteRef = ref(null);
 const newNoteContent = ref('');
 
@@ -60,10 +50,5 @@ const handleAddNote = () => {
 
   newNoteContent.value = '';
   newNoteRef.value.focus();
-};
-
-const handleDeleteNote = (id) => {
-  console.log('del note id', id);
-  noteArr.value = noteArr.value.filter((note) => note.id !== id);
 };
 </script>

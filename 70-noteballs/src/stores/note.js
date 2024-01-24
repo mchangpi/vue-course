@@ -21,6 +21,9 @@ export const useNoteStore = defineStore('note', () => {
     noteArr.value.unshift(newNote);
     console.log(newNote, 'note array size', noteArr.value.length);
   }
+  function deleteNoteWithId(id) {
+    noteArr.value = noteArr.value.filter((note) => note.id !== id);
+  }
 
-  return { noteArr, addNote };
+  return { noteArr, addNote, deleteNoteWithId };
 });
