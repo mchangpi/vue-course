@@ -2,6 +2,7 @@
   <nav class="w-full border-gray-200 bg-cyan-200">
     <div
       class="container mx-auto flex flex-wrap items-center justify-between px-2"
+      ref="navbarRef"
     >
       <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
         <span class="self-center whitespace-nowrap text-2xl font-semibold"
@@ -58,10 +59,11 @@
 
 <script setup>
 import { ref } from 'vue';
-// import { FwbNavbar } from 'flowbite-vue';
+import { onClickOutside } from '@vueuse/core';
 
 const isShowMenu = ref(false);
 const activeIdx = ref(0);
+const navbarRef = ref(null);
 
 const handleShowMenu = () => {
   console.log('show menu', isShowMenu.value);
@@ -78,4 +80,9 @@ const getClassArr = (idx) => {
   if (activeIdx.value === idx) return ['text-white', 'bg-blue-500'];
   else return ['text-blue-500'];
 };
+
+onClickOutside(navbarRef, (event) => {
+  // console.log(event);
+  isShowMenu.value = false;
+});
 </script>
