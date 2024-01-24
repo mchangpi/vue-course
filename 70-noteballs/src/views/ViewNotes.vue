@@ -1,5 +1,49 @@
 <template>
-  <!-- https://flowbite.com/docs/components/forms/#default-form -->
+  <AddEditNote v-model="newNoteContent">
+    <template v-slot:buttons>
+      <button
+        type="submit"
+        @click="handleAddNote"
+        v-bind:disabled="!newNoteContent.trim()"
+        class="m-2 w-1/2 rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+      >
+        Add Note
+      </button>
+    </template>
+  </AddEditNote>
+
+  <hr class="m-4 border-2 border-dotted" />
+
+  <Note v-for="note of noteStore.noteArr" :key="note.id" v-bind:note="note" />
+  <!-- v-on:deleteNote="(id) => noteStore.deleteNoteWithId(id)" -->
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import Note from '@/components/notes/Note.vue';
+import AddEditNote from '@/components/notes/AddEditNote.vue';
+import { useNoteStore } from '@/stores/note';
+
+const newNoteRef = ref(null);
+const newNoteContent = ref('');
+
+const noteStore = useNoteStore();
+
+const handleAddNote = () => {
+  const newNote = {
+    id: new Date().getTime(),
+    content: newNoteContent.value,
+  };
+  // console.log(newNote);
+  noteStore.addNote(newNote);
+
+  newNoteContent.value = '';
+  newNoteRef.value.focus();
+};
+</script>
+
+<!-- https://flowbite.com/docs/components/forms/#default-form -->
+<!--
   <form
     class="z-0 mx-auto mb-2 flex max-w-5xl flex-col items-end rounded-md bg-cyan-300 p-4"
   >
@@ -23,32 +67,4 @@
     >
       Add Note
     </button>
-  </form>
-
-  <hr class="m-4 border-2 border-dotted" />
-
-  <Note v-for="note of noteStore.noteArr" :key="note.id" v-bind:note="note" />
-  <!-- v-on:deleteNote="(id) => noteStore.deleteNoteWithId(id)" -->
-</template>
-
-<script setup>
-import { ref } from 'vue';
-import Note from '@/components/notes/Note.vue';
-import { useNoteStore } from '@/stores/note';
-
-const newNoteRef = ref(null);
-const newNoteContent = ref('');
-
-const noteStore = useNoteStore();
-
-const handleAddNote = () => {
-  const newNote = {
-    id: new Date().getTime(),
-    content: newNoteContent.value,
-  };
-  noteStore.addNote(newNote);
-
-  newNoteContent.value = '';
-  newNoteRef.value.focus();
-};
-</script>
+  </form>-->

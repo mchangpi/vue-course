@@ -12,10 +12,11 @@
         <small>{{ contentLength }} </small>
       </div>
       <div class="mt-4 flex w-full md:mt-6">
-        <a
+        <RouterLink
+          :to="`/edit/${note.id}`"
           href="#"
           class="w-1/2 items-center rounded-lg bg-sky-300 px-4 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
-          >Edit</a
+          >Edit</RouterLink
         >
         <a
           @click.prevent="() => noteStore.deleteNoteWithId(note.id)"
