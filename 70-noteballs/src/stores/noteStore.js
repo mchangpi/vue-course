@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 
 export const useNoteStore = defineStore('note', () => {
@@ -8,6 +8,11 @@ export const useNoteStore = defineStore('note', () => {
   ];
 
   const noteArr = ref(initNoteArr);
+
+  const totalNoteCount = computed(() => noteArr.value.length);
+  const totalCharCount = computed(() => {
+    return noteArr.value.reduce((sum, note) => sum + note.content.length, 0);
+  });
 
   /* actions */
   function addNote(newNote) {
@@ -35,5 +40,13 @@ export const useNoteStore = defineStore('note', () => {
     });
   }
 
-  return { noteArr, addNote, deleteNoteWithId, getNoteWithId, updateNote };
+  return {
+    noteArr,
+    totalNoteCount,
+    totalCharCount,
+    addNote,
+    deleteNoteWithId,
+    getNoteWithId,
+    updateNote,
+  };
 });

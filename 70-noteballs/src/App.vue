@@ -1,7 +1,7 @@
 <template>
   <NavBar />
 
-  <div class="absolute top-20 -z-10 w-full px-2 py-2">
+  <div class="absolute top-14 -z-10 w-full px-2 py-2">
     <RouterView />
   </div>
 </template>

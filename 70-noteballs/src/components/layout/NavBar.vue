@@ -71,6 +71,7 @@ const handleShowMenu = () => {
 const handleSetMenuIdx = (idx) => {
   console.log('nav idx', idx);
   activeIdx.value = idx;
+  isShowMenu.value = false;
 };
 
 const getClassArr = (idx) => {
