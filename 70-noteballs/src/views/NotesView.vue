@@ -23,7 +23,7 @@
 import { ref } from 'vue';
 import Note from '@/components/notes/Note.vue';
 import AddEditNote from '@/components/notes/AddEditNote.vue';
-import { useNoteStore } from '@/stores/note';
+import { useNoteStore } from '@/stores/noteStore';
 
 const newNoteContent = ref('');
 const addEditNoteRef = ref(null);

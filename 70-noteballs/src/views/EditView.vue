@@ -13,7 +13,7 @@
         </button>
         <button
           type="submit"
-          @click="handleEditNote"
+          @click="handleSaveNote"
           v-bind:disabled="!noteContent.trim()"
           class="m-2 w-1/2 rounded-lg bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
         >
@@ -28,7 +28,7 @@
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import AddEditNote from '@/components/notes/AddEditNote.vue';
-import { useNoteStore } from '@/stores/note';
+import { useNoteStore } from '@/stores/noteStore';
 
 const { params } = useRoute();
 const router = useRouter();
@@ -37,7 +37,7 @@ const initialNote = noteStore.getNoteWithId(params.id);
 
 const noteContent = ref(initialNote.content || '');
 
-const handleEditNote = () => {
+const handleSaveNote = () => {
   const editedNote = {
     id: params.id,
     content: noteContent.value,
@@ -49,8 +49,4 @@ const handleEditNote = () => {
   // noteContent.value = '';
   // addEditNoteRef.value.focusTextarea();
 };
-
-/* const handleCancel = () => {
-  router.push({ name: 'notes', params: {} });
-}; */
 </script>

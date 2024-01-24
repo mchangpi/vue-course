@@ -9,25 +9,21 @@ export const useNoteStore = defineStore('note', () => {
 
   const noteArr = ref(initNoteArr);
 
-  /* // getters
-  const oddOrEven = computed(() => {
-    if (count.value % 2 === 0) return 'even';
-    else return 'odd';
-  });
-  */
-
   /* actions */
   function addNote(newNote) {
     noteArr.value.unshift(newNote);
     // console.log(newNote, 'note array size', noteArr.value.length);
   }
+
   function deleteNoteWithId(id) {
     noteArr.value = noteArr.value.filter((note) => note.id !== Number(id));
   }
+
   function getNoteWithId(id) {
     const foundNote = noteArr.value.find((note) => note.id === Number(id));
     return foundNote || {};
   }
+
   function updateNote(editedNote) {
     // console.log(editedNote);
     noteArr.value = noteArr.value.map((note) => {
