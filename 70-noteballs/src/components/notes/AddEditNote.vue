@@ -12,6 +12,7 @@
         ref="textareaRef"
         required
         placeholder="Add a new note"
+        maxlength="50"
         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-base text-gray-900 focus:border-blue-500 focus:ring-blue-500"
         v-autofocus
       />
