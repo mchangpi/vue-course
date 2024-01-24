@@ -20,10 +20,11 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import Note from '@/components/notes/Note.vue';
 import AddEditNote from '@/components/notes/AddEditNote.vue';
 import { useNoteStore } from '@/stores/noteStore';
+import { useWatchChars } from '@/use/useWatchChars';
 
 const newNoteContent = ref('');
 const addEditNoteRef = ref(null);
@@ -42,7 +43,5 @@ const handleAddNote = () => {
   addEditNoteRef.value.focusTextarea();
 };
 
-watch(newNoteContent, (newContent) => {
-  if (newContent.length === 50) alert('note content length exceeds 50!');
-});
+useWatchChars(newNoteContent);
 </script>

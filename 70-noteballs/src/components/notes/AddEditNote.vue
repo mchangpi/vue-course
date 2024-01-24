@@ -12,7 +12,7 @@
         ref="textareaRef"
         required
         placeholder="Add a new note"
-        maxlength="50"
+        :maxlength="MAX_NOTE_LENGTH"
         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-base text-gray-900 focus:border-blue-500 focus:ring-blue-500"
         v-autofocus
       />
@@ -24,6 +24,7 @@
 <script setup>
 import { ref } from 'vue';
 import { vAutofocus } from '@/directives/vAutofocus';
+import { MAX_NOTE_LENGTH } from '@/use/useWatchChars';
 
 const modelProps = defineModel({ type: String });
 const title = modelProps.value.trim().length > 0 ? 'Edit Note' : 'Add Note';
