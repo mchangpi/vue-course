@@ -56,7 +56,7 @@ const handleAddNote = () => {
     id: new Date().getTime(),
     content: newNoteContent.value,
   };
-  noteArr.value.unshift(newNote);
+  noteStore.addNote(newNote);
 
   newNoteContent.value = '';
   newNoteRef.value.focus();

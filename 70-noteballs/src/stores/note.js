@@ -16,14 +16,11 @@ export const useNoteStore = defineStore('note', () => {
   });
   */
 
-  /* 
-  // actions
-  function increaseCounter(step) {
-    count.value += step;
+  /* actions */
+  function addNote(newNote) {
+    noteArr.value.unshift(newNote);
+    console.log(newNote, 'note array size', noteArr.value.length);
   }
-  function decreaseCounter(step) {
-    count.value -= step;
-  }*/
 
-  return { noteArr };
+  return { noteArr, addNote };
 });
