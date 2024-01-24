@@ -9,6 +9,7 @@
       >
       <textarea
         v-model="modelProps"
+        ref="textareaRef"
         required
         placeholder="Add a new note"
         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
@@ -19,14 +20,17 @@
 </template>
 
 <script setup>
-/*
-const props = defineProps({
-  modelValue: {
-    type: String,
-    required: true,
-  },
-});
-*/
-
+import { ref } from 'vue';
 const modelProps = defineModel({ type: String });
+
+const textareaRef = ref(null);
+
+const focusTextarea = () => {
+  // console.log('focusTextarea called');
+  textareaRef.value.focus();
+};
+
+defineExpose({
+  focusTextarea,
+});
 </script>

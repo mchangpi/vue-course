@@ -1,5 +1,5 @@
 <template>
-  <AddEditNote v-model="newNoteContent">
+  <AddEditNote v-model="newNoteContent" ref="addEditNoteRef">
     <template v-slot:buttons>
       <button
         type="submit"
@@ -24,8 +24,8 @@ import Note from '@/components/notes/Note.vue';
 import AddEditNote from '@/components/notes/AddEditNote.vue';
 import { useNoteStore } from '@/stores/note';
 
-const newNoteRef = ref(null);
 const newNoteContent = ref('');
+const addEditNoteRef = ref(null);
 
 const noteStore = useNoteStore();
 
@@ -38,7 +38,7 @@ const handleAddNote = () => {
   noteStore.addNote(newNote);
 
   newNoteContent.value = '';
-  newNoteRef.value.focus();
+  addEditNoteRef.value.focusTextarea();
 };
 </script>
 
