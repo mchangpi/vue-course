@@ -70,8 +70,24 @@
 </template>
 
 <script setup>
+import { onMounted, onUnmounted } from 'vue';
 import { useNoteStore } from '@/stores/noteStore';
 const noteStore = useNoteStore();
 
 const noteToDelete = noteStore.getNoteWithId(noteStore.noteToDeleteId);
+
+const handleEscapeKeyUpEvent = (e) => {
+  // console.log('NoteDeleteModal mounted', e.key);
+  if (e.key.toLocaleLowerCase() === 'escape') {
+    noteStore.setNoteToDeleteId(-1);
+  }
+};
+
+onMounted(() => {
+  document.addEventListener('keyup', handleEscapeKeyUpEvent);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('keyup', handleEscapeKeyUpEvent);
+});
 </script>
