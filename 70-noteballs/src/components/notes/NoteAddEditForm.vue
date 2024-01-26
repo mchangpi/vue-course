@@ -1,7 +1,8 @@
 <template>
   <!-- https://flowbite.com/docs/components/forms/#default-form -->
   <form
-    class="z-0 mx-auto mb-2 flex max-w-4xl flex-col items-end rounded-md bg-cyan-300 p-4"
+    class="z-0 mx-auto mb-2 flex max-w-4xl flex-col items-end rounded-md p-4"
+    :class="bgColor"
   >
     <div class="mb-2 w-full">
       <label class="mb-2 block text-lg font-medium text-gray-900"
@@ -27,6 +28,10 @@ import { vAutofocus } from '@/directives/vAutofocus';
 import { MAX_NOTE_LENGTH } from '@/use/useWatchChars';
 
 const modelProps = defineModel({ type: String });
+const { bgColor } = defineProps({
+  bgColor: { type: String, default: 'bg-cyan-300' },
+});
+
 const title = modelProps.value.trim().length > 0 ? 'Edit Note' : 'Add Note';
 
 const textareaRef = ref(null);

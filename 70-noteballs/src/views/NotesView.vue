@@ -1,6 +1,10 @@
 <template>
   <!-- 1) v-slot:buttons 2) v-model 3) ref -->
-  <AddEditNote v-model="newNoteContent" ref="addEditNoteRef">
+  <NoteAddEditForm
+    v-model="newNoteContent"
+    ref="noteAddEditRef"
+    bgClass="bg-cyan-300"
+  >
     <template v-slot:buttons>
       <button
         type="submit"
@@ -11,23 +15,24 @@
         Add Note
       </button>
     </template>
-  </AddEditNote>
+  </NoteAddEditForm>
 
   <hr class="m-4 border-2 border-dotted" />
 
-  <Note v-for="note of noteStore.noteArr" :key="note.id" v-bind:note="note" />
-  <!-- v-on:deleteNote="(id) => noteStore.deleteNoteWithId(id)" -->
+  <Note v-for="note of noteStore.noteArr" :key="note.id" :note="note" />
+  <NoteDeleteModal v-if="noteStore.noteToDeleteId > 0" />
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import Note from '@/components/notes/Note.vue';
-import AddEditNote from '@/components/notes/AddEditNote.vue';
+import NoteAddEditForm from '@/components/notes/NoteAddEditForm.vue';
+import NoteDeleteModal from '@/components/notes/NoteDeleteModal.vue';
 import { useNoteStore } from '@/stores/noteStore';
 import { useWatchChars } from '@/use/useWatchChars';
 
 const newNoteContent = ref('');
-const addEditNoteRef = ref(null);
+const noteAddEditRef = ref(null);
 
 const noteStore = useNoteStore();
 
@@ -40,8 +45,16 @@ const handleAddNote = () => {
   noteStore.addNote(newNote);
 
   newNoteContent.value = '';
-  addEditNoteRef.value.focusTextarea();
+  noteAddEditRef.value.focusTextarea();
 };
+
+/*
+watch(
+  () => noteStore.deleteNoteId,
+  (Id, prevId) => {
+    console.log('delete note idx', Id, '(old idx:', prevId, ')');
+  },
+);*/
 
 useWatchChars(newNoteContent, 40);
 </script>

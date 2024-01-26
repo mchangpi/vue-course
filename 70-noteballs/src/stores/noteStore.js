@@ -1,14 +1,17 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 
-export const useNoteStore = defineStore('note', () => {
-  const initNoteArr = [
-    { id: 1, content: 'note content 1' },
-    { id: 2, content: 'note content 2' },
-  ];
+const initNoteArr = [
+  { id: 1, content: 'note content 1' },
+  { id: 2, content: 'note content 2' },
+];
 
+export const useNoteStore = defineStore('note', () => {
+  /* states */
+  const noteToDeleteId = ref(-1);
   const noteArr = ref(initNoteArr);
 
+  /* getters */
   const totalNoteCount = computed(() => noteArr.value.length);
   const totalCharCount = computed(() => {
     return noteArr.value.reduce((sum, note) => sum + note.content.length, 0);
@@ -20,8 +23,17 @@ export const useNoteStore = defineStore('note', () => {
     // console.log(newNote, 'note array size', noteArr.value.length);
   }
 
-  function deleteNoteWithId(id) {
-    noteArr.value = noteArr.value.filter((note) => note.id !== Number(id));
+  function setNoteToDeleteId(id) {
+    noteToDeleteId.value = Number(id);
+  }
+
+  function deleteNote() {
+    if (noteToDeleteId.value > 0) {
+      noteArr.value = noteArr.value.filter(
+        (note) => note.id !== Number(noteToDeleteId.value),
+      );
+    }
+    noteToDeleteId.value = -1;
   }
 
   function getNoteWithId(id) {
@@ -42,10 +54,12 @@ export const useNoteStore = defineStore('note', () => {
 
   return {
     noteArr,
-    totalNoteCount,
+    noteToDeleteId,
+    totalNoteCount /* */,
     totalCharCount,
-    addNote,
-    deleteNoteWithId,
+    addNote /* */,
+    setNoteToDeleteId,
+    deleteNote,
     getNoteWithId,
     updateNote,
   };
