@@ -3,7 +3,7 @@
   <!-- Main modal -->
   <div
     id="delete-modal"
-    class="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center overflow-y-auto backdrop-blur"
+    class="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center overflow-y-auto backdrop-blur-md"
   >
     <div class="relative max-h-full w-full max-w-2xl p-4">
       <!-- Modal content -->
@@ -41,7 +41,7 @@
           <p class="text-base leading-relaxed text-gray-500">
             Are you sure you want to delete this Note?
           </p>
-          <p>{{ noteToDeleteContent }}</p>
+          <p>{{ noteToDelete.content }}</p>
         </div>
         <!-- Modal footer -->
         <div
@@ -73,9 +73,5 @@
 import { useNoteStore } from '@/stores/noteStore';
 const noteStore = useNoteStore();
 
-console.log(noteStore.noteToDeleteId);
-
-const noteToDeleteContent = noteStore.getNoteWithId(
-  noteStore.noteToDeleteId,
-).content;
+const noteToDelete = noteStore.getNoteWithId(noteStore.noteToDeleteId);
 </script>

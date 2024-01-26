@@ -20,11 +20,15 @@
   <hr class="m-4 border-2 border-dotted" />
 
   <Note v-for="note of noteStore.noteArr" :key="note.id" :note="note" />
-  <NoteDeleteModal v-if="noteStore.noteToDeleteId > 0" />
+  <NoteDeleteModal
+    v-if="noteStore.noteToDeleteId > 0"
+    ref="noteDeleteModalRef"
+  />
 </template>
 
 <script setup>
 import { ref, watch } from 'vue';
+import { onClickOutside } from '@vueuse/core';
 import Note from '@/components/notes/Note.vue';
 import NoteAddEditForm from '@/components/notes/NoteAddEditForm.vue';
 import NoteDeleteModal from '@/components/notes/NoteDeleteModal.vue';
@@ -33,6 +37,7 @@ import { useWatchChars } from '@/use/useWatchChars';
 
 const newNoteContent = ref('');
 const noteAddEditRef = ref(null);
+const noteDeleteModalRef = ref(null);
 
 const noteStore = useNoteStore();
 
@@ -57,4 +62,9 @@ watch(
 );*/
 
 useWatchChars(newNoteContent, 40);
+
+onClickOutside(noteDeleteModalRef, (event) => {
+  // console.log(event);
+  noteStore.setNoteToDeleteId(-1);
+});
 </script>
