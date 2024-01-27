@@ -1,7 +1,6 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
-// import {db}
-// import { collection, getDocs } from "firebase/firestore";
+import { db } from '@/js/firebase';
 
 const initNoteArr = [
   /*
