@@ -9,9 +9,9 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
 import NavBar from '@/components/layout/NavBar.vue';
 import { useNoteStore } from '@/stores/noteStore';
-import { onMounted } from 'vue';
 
 const noteStore = useNoteStore();
 

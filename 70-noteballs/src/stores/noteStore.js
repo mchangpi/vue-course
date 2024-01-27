@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { db } from '@/js/firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
 const initNoteArr = [
   /*
@@ -21,6 +22,16 @@ export const useNoteStore = defineStore('note', () => {
   });
 
   /* actions */
+  async function getNoteArr() {
+    const noteCollections = await getDocs(collection(db, 'notes'));
+
+    noteCollections.forEach((note) => {
+      // console.log(note.id, ' : ', note.data().content);
+      noteArr.value.push({ id: note.id, content: note.data().content });
+    });
+    // console.log(noteArr.value);
+  }
+
   function addNote(newNote) {
     noteArr.value.unshift(newNote);
     // console.log(newNote, 'note array size', noteArr.value.length);
@@ -53,10 +64,6 @@ export const useNoteStore = defineStore('note', () => {
         return note;
       }
     });
-  }
-
-  function getNoteArr() {
-    console.log('Get Notes');
   }
 
   return {
