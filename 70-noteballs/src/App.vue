@@ -10,6 +10,14 @@
 
 <script setup>
 import NavBar from '@/components/layout/NavBar.vue';
+import { useNoteStore } from '@/stores/noteStore';
+import { onMounted } from 'vue';
+
+const noteStore = useNoteStore();
+
+onMounted(() => {
+  noteStore.getNoteArr();
+});
 </script>
 
 <!-- <style src="./style.css"></style> -->

@@ -1,9 +1,13 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
+// import {db}
+// import { collection, getDocs } from "firebase/firestore";
 
 const initNoteArr = [
+  /*
   { id: 1, content: 'note content 1' },
   { id: 2, content: 'note content 2' },
+  */
 ];
 
 export const useNoteStore = defineStore('note', () => {
@@ -52,12 +56,17 @@ export const useNoteStore = defineStore('note', () => {
     });
   }
 
+  function getNoteArr() {
+    console.log('Get Notes');
+  }
+
   return {
     noteArr,
     noteToDeleteId,
     totalNoteCount /* */,
     totalCharCount,
-    addNote /* */,
+    getNoteArr /* */,
+    addNote,
     setNoteToDeleteId,
     deleteNote,
     getNoteWithId,
