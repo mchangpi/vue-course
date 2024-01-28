@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { db } from '@/js/firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, onSnapshot } from 'firebase/firestore';
 
 const initNoteArr = [
   /*
@@ -23,13 +23,20 @@ export const useNoteStore = defineStore('note', () => {
 
   /* actions */
   async function getNoteArr() {
-    const noteCollections = await getDocs(collection(db, 'notes'));
-
+    /* const noteCollections = await getDocs(collection(db, 'notes'));
     noteCollections.forEach((note) => {
       // console.log(note.id, ' : ', note.data().content);
       noteArr.value.push({ id: note.id, content: note.data().content });
+    }); */
+
+    const unsubscribe = onSnapshot(collection(db, 'notes'), (querySnapshot) => {
+      const newNoteArr = [];
+      querySnapshot.forEach((note) => {
+        newNoteArr.push({ id: note.id, content: note.data().content });
+      });
+      noteArr.value = newNoteArr;
     });
-    // console.log(noteArr.value);
+    /* unsubscribe(); // later on */
   }
 
   function addNote(newNote) {
