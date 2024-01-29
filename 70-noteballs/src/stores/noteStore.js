@@ -11,6 +11,7 @@ import {
   query,
   orderBy,
 } from 'firebase/firestore';
+import fa from 'faker/lib/locales/fa';
 
 const initNoteArr = [
   /*
@@ -31,6 +32,7 @@ export const useNoteStore = defineStore('note', () => {
   /* states */
   const noteToDeleteId = ref(null);
   const noteArr = ref(initNoteArr);
+  const loadingProgress = ref(0);
 
   /* getters */
   const totalNoteCount = computed(() => noteArr.value.length);
@@ -39,7 +41,13 @@ export const useNoteStore = defineStore('note', () => {
   });
 
   /* actions */
-  async function getNoteArr() {
+  function getNoteArr() {
+    loadingProgress.value = 0;
+    const progressInterval = setInterval(() => {
+      loadingProgress.value += 10;
+      // console.log(loadingProgress.value);
+    }, 200);
+
     onSnapshot(notesCollectionQuery, (querySnapshot) => {
       const newNoteArr = [];
       querySnapshot.forEach((doc) => {
@@ -47,6 +55,8 @@ export const useNoteStore = defineStore('note', () => {
         newNoteArr.push({ id: doc.id, date, content });
       });
       noteArr.value = newNoteArr;
+      loadingProgress.value = 0;
+      clearInterval(progressInterval);
     });
   }
 
@@ -84,6 +94,7 @@ export const useNoteStore = defineStore('note', () => {
   return {
     noteArr,
     noteToDeleteId,
+    loadingProgress,
     totalNoteCount /* */,
     totalCharCount,
     getNoteArr /* */,

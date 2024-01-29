@@ -19,7 +19,26 @@
 
   <hr class="m-4 border-2 border-dotted" />
 
-  <Note v-for="note of noteStore.noteArr" :key="note.id" :note="note" />
+  <div v-if="noteStore.loadingProgress > 0">
+    <div class="mb-1 flex justify-between">
+      <span class="text-base font-medium text-blue-700 dark:text-white"
+        >Loading ...</span
+      >
+      <!--<span class="text-sm font-medium text-blue-600">{{
+        `w-[${noteStore.loadingProgress}%]`
+      }}</span>-->
+    </div>
+    <div class="h-2.5 w-full rounded-full bg-gray-200">
+      <div
+        class="h-2.5 rounded-full bg-blue-500"
+        :style="`width: ${noteStore.loadingProgress % 100}%`"
+      ></div>
+    </div>
+  </div>
+  <template v-else>
+    <Note v-for="note of noteStore.noteArr" :key="note.id" :note="note" />
+  </template>
+
   <div ref="noteDeleteModalRef">
     <NoteDeleteModal v-if="noteStore.noteToDeleteId" />
   </div>
