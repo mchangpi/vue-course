@@ -19,9 +19,9 @@
 
   <hr class="m-4 border-2 border-dotted" />
 
-  <div v-if="noteStore.loadingProgress > 0">
+  <div v-if="noteStore.loadingProgress > 0" class="mx-4">
     <div class="mb-1 flex justify-between">
-      <span class="text-base font-medium text-blue-700 dark:text-white"
+      <span class="text-xl font-medium text-blue-700 dark:text-white"
         >Loading ...</span
       >
       <!--<span class="text-sm font-medium text-blue-600">{{
@@ -37,6 +37,12 @@
   </div>
   <template v-else>
     <Note v-for="note of noteStore.noteArr" :key="note.id" :note="note" />
+    <div
+      v-if="!noteStore.noteArr.length"
+      class="py-6 text-center font-mono text-3xl font-light text-slate-500"
+    >
+      No notes here yet ...
+    </div>
   </template>
 
   <div ref="noteDeleteModalRef">

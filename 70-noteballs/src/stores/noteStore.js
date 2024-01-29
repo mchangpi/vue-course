@@ -42,7 +42,7 @@ export const useNoteStore = defineStore('note', () => {
 
   /* actions */
   function getNoteArr() {
-    loadingProgress.value = 0;
+    loadingProgress.value = 1;
     const progressInterval = setInterval(() => {
       loadingProgress.value += 10;
       // console.log(loadingProgress.value);
