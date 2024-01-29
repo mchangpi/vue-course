@@ -20,10 +20,9 @@
   <hr class="m-4 border-2 border-dotted" />
 
   <Note v-for="note of noteStore.noteArr" :key="note.id" :note="note" />
-  <NoteDeleteModal
-    v-if="noteStore.noteToDeleteId > 0"
-    ref="noteDeleteModalRef"
-  />
+  <div ref="noteDeleteModalRef">
+    <NoteDeleteModal v-if="noteStore.noteToDeleteId > 0" />
+  </div>
 </template>
 
 <script setup>
@@ -64,7 +63,7 @@ watch(
 useWatchChars(newNoteContent, 40);
 
 onClickOutside(noteDeleteModalRef, (event) => {
-  // console.log(event);
-  noteStore.setNoteToDeleteId(-1);
+  // console.log('onClickOutside (x,y)=', event.screenX, event.screenY);
+  noteStore.setNoteToDeleteId(null);
 });
 </script>

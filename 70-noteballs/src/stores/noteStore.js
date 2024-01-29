@@ -1,18 +1,26 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { db } from '@/js/firebase';
-import { collection, doc, setDoc, onSnapshot } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  setDoc,
+  deleteDoc,
+  onSnapshot,
+} from 'firebase/firestore';
 
 const initNoteArr = [
   /*
-  { id: 1, content: 'note content 1' },
-  { id: 2, content: 'note content 2' },
+  { id: '1', content: 'note content 1' },
+  { id: '2', content: 'note content 2' },
   */
 ];
 
+const notesCollectionRef = collection(db, 'notes');
+
 export const useNoteStore = defineStore('note', () => {
   /* states */
-  const noteToDeleteId = ref(-1);
+  const noteToDeleteId = ref(null);
   const noteArr = ref(initNoteArr);
 
   /* getters */
@@ -23,7 +31,7 @@ export const useNoteStore = defineStore('note', () => {
 
   /* actions */
   async function getNoteArr() {
-    onSnapshot(collection(db, 'notes'), (querySnapshot) => {
+    onSnapshot(notesCollectionRef, (querySnapshot) => {
       const newNoteArr = [];
       querySnapshot.forEach((note) => {
         newNoteArr.push({ id: note.id, content: note.data().content });
@@ -37,22 +45,24 @@ export const useNoteStore = defineStore('note', () => {
 
   async function addNote(newNote) {
     await setDoc(
-      doc(db, 'notes', newNote.id),
+      doc(notesCollectionRef, newNote.id),
       newNote,
     ); /* add note to firebase */
   }
 
   function setNoteToDeleteId(id) {
-    noteToDeleteId.value = id.toString();
+    noteToDeleteId.value = id;
   }
 
-  function deleteNote() {
-    if (noteToDeleteId.value > 0) {
-      noteArr.value = noteArr.value.filter(
+  async function deleteNote() {
+    // console.log('deleteNote id', noteToDeleteId.value);
+    if (noteToDeleteId.value) {
+      /* noteArr.value = noteArr.value.filter(
         (note) => note.id !== noteToDeleteId.value.toString(),
-      );
+      );*/
+      await deleteDoc(doc(notesCollectionRef, noteToDeleteId.value));
     }
-    noteToDeleteId.value = -1;
+    noteToDeleteId.value = null;
   }
 
   function getNoteWithId(id) {

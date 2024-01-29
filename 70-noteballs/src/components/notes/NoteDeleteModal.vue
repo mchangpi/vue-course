@@ -15,7 +15,7 @@
           <h3 class="text-xl font-semibold text-gray-900">Delete Note?</h3>
           <button
             type="button"
-            @click="() => noteStore.setNoteToDeleteId(-1)"
+            @click="() => noteStore.setNoteToDeleteId(null)"
             class="ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900"
             data-modal-hide="default-modal"
           >
@@ -48,7 +48,7 @@
           class="flex items-center justify-end gap-4 rounded-b border-t border-gray-200 p-4 md:p-5"
         >
           <button
-            @click="() => noteStore.setNoteToDeleteId(-1)"
+            @click="() => noteStore.setNoteToDeleteId(null)"
             data-modal-hide="default-modal"
             type="button"
             class="ms-3 w-1/3 rounded-lg border border-gray-200 bg-gray-100 px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-gray-200 hover:text-slate-800 focus:z-10 focus:outline-none focus:ring-4 focus:ring-blue-300"
@@ -79,7 +79,7 @@ const noteToDelete = noteStore.getNoteWithId(noteStore.noteToDeleteId);
 const handleEscapeKeyUpEvent = (e) => {
   // console.log('NoteDeleteModal mounted', e.key);
   if (e.key.toLocaleLowerCase() === 'escape') {
-    noteStore.setNoteToDeleteId(-1);
+    noteStore.setNoteToDeleteId(null);
   }
 };
 
