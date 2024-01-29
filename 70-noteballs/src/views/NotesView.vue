@@ -21,7 +21,7 @@
 
   <Note v-for="note of noteStore.noteArr" :key="note.id" :note="note" />
   <div ref="noteDeleteModalRef">
-    <NoteDeleteModal v-if="noteStore.noteToDeleteId > 0" />
+    <NoteDeleteModal v-if="noteStore.noteToDeleteId" />
   </div>
 </template>
 
@@ -42,7 +42,7 @@ const noteStore = useNoteStore();
 
 const handleAddNote = () => {
   const newNote = {
-    id: new Date().getTime().toString(),
+    date: new Date().getTime().toString(),
     content: newNoteContent.value,
   };
   // console.log(newNote);

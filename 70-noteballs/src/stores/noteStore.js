@@ -4,14 +4,12 @@ import { db } from '@/js/firebase';
 import {
   collection,
   doc,
-  setDoc,
+  addDoc,
   deleteDoc,
   updateDoc,
   onSnapshot,
   query,
   orderBy,
-  documentId,
-  limit,
 } from 'firebase/firestore';
 
 const initNoteArr = [
@@ -25,7 +23,7 @@ const notesCollectionRef = collection(db, 'notes');
 
 const notesCollectionQuery = query(
   notesCollectionRef,
-  orderBy(documentId(), 'desc'),
+  orderBy('date', 'desc'),
   /* limit(100), */
 );
 
@@ -44,26 +42,21 @@ export const useNoteStore = defineStore('note', () => {
   async function getNoteArr() {
     onSnapshot(notesCollectionQuery, (querySnapshot) => {
       const newNoteArr = [];
-      querySnapshot.forEach((note) => {
-        newNoteArr.push({ id: note.id, content: note.data().content });
+      querySnapshot.forEach((doc) => {
+        const { date, content } = doc.data();
+        newNoteArr.push({ id: doc.id, date, content });
       });
       noteArr.value = newNoteArr;
-      /* noteArr.value = newNoteArr.sort(
-        // sort noteA before noteB if return value < 0 
-        (noteA, noteB) => Number(noteB.id) - Number(noteA.id),
-      ); */
     });
   }
 
   async function addNote(newNote) {
-    await setDoc(
-      doc(notesCollectionRef, newNote.id),
-      newNote,
-    ); /* add note to firebase */
+    // console.log(newNote);
+    await addDoc(notesCollectionRef, newNote);
   }
 
   function setNoteToDeleteId(id) {
-    noteToDeleteId.value = id;
+    noteToDeleteId.value = id?.toString();
   }
 
   async function deleteNote() {
@@ -78,7 +71,7 @@ export const useNoteStore = defineStore('note', () => {
   }
 
   function getNoteWithId(id) {
-    const foundNote = noteArr.value.find((note) => note.id === id.toString());
+    const foundNote = noteArr.value.find((note) => note.id === id?.toString());
     return foundNote || {};
   }
 

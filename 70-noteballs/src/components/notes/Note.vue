@@ -7,7 +7,8 @@
     <div class="text-xl text-gray-800">
       {{ note.content }}
     </div>
-    <div class="w-full text-right text-gray-400">
+    <div class="flex w-full justify-between text-right text-gray-400">
+      <small>Date {{ formatDate }} </small>
       <small>{{ contentLength }} </small>
     </div>
     <div class="mt-4 flex w-full justify-around md:mt-6">
@@ -28,7 +29,7 @@
 </template>
 
 <script setup>
-import { computed, reactive } from 'vue';
+import { computed } from 'vue';
 import { useNoteStore } from '@/stores/noteStore';
 
 const { note } = defineProps({
@@ -36,6 +37,8 @@ const { note } = defineProps({
 });
 
 const noteStore = useNoteStore();
+
+const formatDate = new Date(Number(note.date)).toLocaleString();
 
 const contentLength = computed(() => {
   const length = note.content.length;
