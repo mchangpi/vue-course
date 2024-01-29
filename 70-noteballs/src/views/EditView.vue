@@ -46,7 +46,5 @@ const handleSaveNote = () => {
   noteStore.updateNote(editedNote);
 
   router.push({ name: 'notes', params: {} });
-  // noteContent.value = '';
-  // addEditNoteRef.value.focusTextarea();
 };
 </script>

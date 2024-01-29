@@ -6,6 +6,7 @@ import {
   doc,
   setDoc,
   deleteDoc,
+  updateDoc,
   onSnapshot,
 } from 'firebase/firestore';
 
@@ -70,14 +71,9 @@ export const useNoteStore = defineStore('note', () => {
     return foundNote || {};
   }
 
-  function updateNote(editedNote) {
-    // console.log(editedNote);
-    noteArr.value = noteArr.value.map((note) => {
-      if (note.id === editedNote.id.toString()) {
-        return { id: note.id, content: editedNote.content };
-      } else {
-        return note;
-      }
+  async function updateNote(editedNote) {
+    await updateDoc(doc(notesCollectionRef, editedNote.id), {
+      content: editedNote.content,
     });
   }
 
