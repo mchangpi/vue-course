@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { db } from '@/js/firebase';
-import { collection, getDocs, onSnapshot } from 'firebase/firestore';
+import { collection, doc, setDoc, onSnapshot } from 'firebase/firestore';
 
 const initNoteArr = [
   /*
@@ -23,49 +23,47 @@ export const useNoteStore = defineStore('note', () => {
 
   /* actions */
   async function getNoteArr() {
-    /* const noteCollections = await getDocs(collection(db, 'notes'));
-    noteCollections.forEach((note) => {
-      // console.log(note.id, ' : ', note.data().content);
-      noteArr.value.push({ id: note.id, content: note.data().content });
-    }); */
-
-    const unsubscribe = onSnapshot(collection(db, 'notes'), (querySnapshot) => {
+    onSnapshot(collection(db, 'notes'), (querySnapshot) => {
       const newNoteArr = [];
       querySnapshot.forEach((note) => {
         newNoteArr.push({ id: note.id, content: note.data().content });
       });
-      noteArr.value = newNoteArr;
+      noteArr.value = newNoteArr.sort(
+        /* sort noteA before noteB if return value < 0 */
+        (noteA, noteB) => Number(noteB.id) - Number(noteA.id),
+      );
     });
-    /* unsubscribe(); // later on */
   }
 
-  function addNote(newNote) {
-    noteArr.value.unshift(newNote);
-    // console.log(newNote, 'note array size', noteArr.value.length);
+  async function addNote(newNote) {
+    await setDoc(
+      doc(db, 'notes', newNote.id),
+      newNote,
+    ); /* add note to firebase */
   }
 
   function setNoteToDeleteId(id) {
-    noteToDeleteId.value = Number(id);
+    noteToDeleteId.value = id.toString();
   }
 
   function deleteNote() {
     if (noteToDeleteId.value > 0) {
       noteArr.value = noteArr.value.filter(
-        (note) => note.id !== Number(noteToDeleteId.value),
+        (note) => note.id !== noteToDeleteId.value.toString(),
       );
     }
     noteToDeleteId.value = -1;
   }
 
   function getNoteWithId(id) {
-    const foundNote = noteArr.value.find((note) => note.id === Number(id));
+    const foundNote = noteArr.value.find((note) => note.id === id.toString());
     return foundNote || {};
   }
 
   function updateNote(editedNote) {
     // console.log(editedNote);
     noteArr.value = noteArr.value.map((note) => {
-      if (note.id === Number(editedNote.id)) {
+      if (note.id === editedNote.id.toString()) {
         return { id: note.id, content: editedNote.content };
       } else {
         return note;

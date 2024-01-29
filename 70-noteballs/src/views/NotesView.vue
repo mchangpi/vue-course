@@ -43,7 +43,7 @@ const noteStore = useNoteStore();
 
 const handleAddNote = () => {
   const newNote = {
-    id: new Date().getTime(),
+    id: new Date().getTime().toString(),
     content: newNoteContent.value,
   };
   // console.log(newNote);
