@@ -6,13 +6,14 @@
     <template v-slot:buttons>
       <div class="flex w-full justify-end">
         <button
+          type="button"
           @click="$router.push({ name: 'notes' })"
           class="m-2 w-1/2 rounded-lg bg-slate-200 px-5 py-2.5 text-center text-sm font-medium text-slate-800 hover:bg-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-300"
         >
           Cancel
         </button>
         <button
-          type="submit"
+          type="button"
           @click="handleSaveNote"
           v-bind:disabled="!noteContent.trim()"
           class="m-2 w-1/2 rounded-lg bg-indigo-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-800 focus:outline-none focus:ring-4 focus:ring-blue-300"

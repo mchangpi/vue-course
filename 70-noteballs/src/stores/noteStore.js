@@ -8,6 +8,10 @@ import {
   deleteDoc,
   updateDoc,
   onSnapshot,
+  query,
+  orderBy,
+  documentId,
+  limit,
 } from 'firebase/firestore';
 
 const initNoteArr = [
@@ -18,6 +22,12 @@ const initNoteArr = [
 ];
 
 const notesCollectionRef = collection(db, 'notes');
+
+const notesCollectionQuery = query(
+  notesCollectionRef,
+  orderBy(documentId(), 'desc'),
+  /* limit(100), */
+);
 
 export const useNoteStore = defineStore('note', () => {
   /* states */
@@ -32,15 +42,16 @@ export const useNoteStore = defineStore('note', () => {
 
   /* actions */
   async function getNoteArr() {
-    onSnapshot(notesCollectionRef, (querySnapshot) => {
+    onSnapshot(notesCollectionQuery, (querySnapshot) => {
       const newNoteArr = [];
       querySnapshot.forEach((note) => {
         newNoteArr.push({ id: note.id, content: note.data().content });
       });
-      noteArr.value = newNoteArr.sort(
-        /* sort noteA before noteB if return value < 0 */
+      noteArr.value = newNoteArr;
+      /* noteArr.value = newNoteArr.sort(
+        // sort noteA before noteB if return value < 0 
         (noteA, noteB) => Number(noteB.id) - Number(noteA.id),
-      );
+      ); */
     });
   }
 
