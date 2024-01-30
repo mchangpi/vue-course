@@ -33,7 +33,7 @@
       </button>
       <div class="w-full md:block md:w-auto" :class="{ hidden: !isShowMenu }">
         <ul
-          class="mt-4 flex flex-col rounded-lg bg-gray-50 p-4 font-medium md:mt-0 md:flex-row md:space-x-1 md:border-0 md:p-0 rtl:space-x-reverse"
+          class="mt-4 flex flex-col rounded-lg bg-sky-100 p-4 font-medium md:mt-0 md:flex-row md:space-x-1 md:border-0 md:p-0 rtl:space-x-reverse"
         >
           <li @click="() => handleSetMenuIdx(0)">
             <RouterLink
@@ -49,6 +49,14 @@
               class="md:border-1 block rounded border border-gray-300 px-3 py-2 text-center md:px-4"
               :class="getClassArr(1)"
               >Stats</RouterLink
+            >
+          </li>
+          <li @click="() => handleSetMenuIdx(2)">
+            <RouterLink
+              to="/stats"
+              class="md:border-1 block rounded border border-gray-300 px-3 py-2 text-center md:px-4"
+              :class="getClassArr(2)"
+              >Logout</RouterLink
             >
           </li>
         </ul>
