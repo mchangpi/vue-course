@@ -49,7 +49,7 @@
               type="email"
               id="email"
               class="block w-full min-w-80 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-              placeholder="name@flowbite.com"
+              placeholder="test@gmail.com"
               required
             />
           </div>
@@ -81,11 +81,15 @@
 
 <script setup>
 import { ref, computed, reactive } from 'vue';
+import { useAuthStore } from '@/stores/authStore';
+
 const isRegister = ref(false);
 const credentials = reactive({
   email: '',
   password: '',
 });
+
+const authStore = useAuthStore();
 
 const getClassArr = (isActive) => {
   if (isActive) return ['border-blue-600', 'text-blue-600'];
@@ -105,14 +109,15 @@ const handleSubmit = () => {
   if (isRegister.value) {
     handleRegisterSubmit();
   } else {
-    handleLoginRegister();
+    handleLoginSubmit();
   }
 };
 
 const handleRegisterSubmit = () => {
   console.log('register submit');
+  authStore.registerUser(credentials);
 };
-const handleLoginRegister = () => {
+const handleLoginSubmit = () => {
   console.log('login submit');
 };
 </script>
