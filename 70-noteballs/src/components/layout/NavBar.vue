@@ -53,8 +53,9 @@
           </li>
           <li @click="() => handleSetMenuIdx(2)">
             <RouterLink
-              to="/stats"
-              class="md:border-1 block rounded border border-gray-300 px-3 py-2 text-center md:px-4"
+              to="/"
+              @click="() => authStore.logOutUser()"
+              class="md:border-1 block rounded border border-gray-300 px-3 py-2 text-center md:ml-2 md:px-4"
               :class="getClassArr(2)"
               >Logout</RouterLink
             >
@@ -68,14 +69,17 @@
 <script setup>
 import { ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
+import { useAuthStore } from '@/stores/authStore';
 
 const isShowMenu = ref(false);
 const activeIdx = ref(0);
 const navbarRef = ref(null);
 
+const authStore = useAuthStore();
+
 const handleShowMenu = () => {
-  console.log('show menu', isShowMenu.value);
   isShowMenu.value = !isShowMenu.value;
+  console.log('show menu', isShowMenu.value);
 };
 
 const handleSetMenuIdx = (idx) => {
@@ -85,8 +89,13 @@ const handleSetMenuIdx = (idx) => {
 };
 
 const getClassArr = (idx) => {
-  if (activeIdx.value === idx) return ['text-white', 'bg-blue-500'];
-  else return ['text-blue-500'];
+  if (2 === idx) {
+    return ['text-white', 'bg-teal-300'];
+  } else if (activeIdx.value === idx) {
+    return ['text-white', 'bg-blue-500'];
+  } else {
+    return ['text-blue-700'];
+  }
 };
 
 onClickOutside(navbarRef, (event) => {
