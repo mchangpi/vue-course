@@ -11,7 +11,6 @@ import {
   query,
   orderBy,
 } from 'firebase/firestore';
-import fa from 'faker/lib/locales/fa';
 
 const initNoteArr = [
   /*
