@@ -53,11 +53,19 @@
           </li>
           <li @click="() => handleSetMenuIdx(2)">
             <RouterLink
-              to="/"
-              @click="() => authStore.logOutUser()"
+              to="/auth"
+              @click="
+                () => {
+                  if (authStore.isUserSignIn) {
+                    authStore.signOutUser();
+                  }
+                }
+              "
               class="md:border-1 block rounded border border-gray-300 px-3 py-2 text-center md:ml-2 md:px-4"
               :class="getClassArr(2)"
-              >Logout</RouterLink
+              >{{
+                authStore.isUserSignIn ? 'Sign Out' : 'Sign In / Up'
+              }}</RouterLink
             >
           </li>
         </ul>

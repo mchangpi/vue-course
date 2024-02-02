@@ -1,9 +1,15 @@
+import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import { auth } from '@/js/firebase';
-import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from 'firebase/auth';
 
 export const useAuthStore = defineStore('auth', () => {
   /* states */
+  const isUserSignIn = ref(false);
 
   /* getters */
 
@@ -20,15 +26,34 @@ export const useAuthStore = defineStore('auth', () => {
       });
   };
 
-  const logOutUser = () => {
+  const signInUser = async (credentials) => {
+    const { email, password } = credentials;
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      const user = userCredential.user;
+      isUserSignIn.value = true;
+      // console.log(user);
+      return user;
+    } catch (error) {
+      console.log(error.message);
+      return null;
+    }
+  };
+
+  const signOutUser = () => {
     signOut(auth)
       .then(() => {
-        console.log('User log out');
+        isUserSignIn.value = false;
+        console.log('user sign out');
       })
       .catch((error) => {
         console.log(error.message);
       });
   };
 
-  return { registerUser, logOutUser };
+  return { isUserSignIn, registerUser, signInUser, signOutUser };
 });

@@ -14,7 +14,7 @@
             }
           "
           class="inline-block rounded-t-lg border-b-2 p-4 text-lg hover:border-gray-300 hover:text-gray-600"
-          >Login</a
+          >Sign In</a
         >
       </li>
       <li class="me-2">
@@ -28,7 +28,7 @@
             }
           "
           class="inline-block rounded-t-lg border-b-2 p-4 text-lg"
-          >Register</a
+          >Sign Up</a
         >
       </li>
     </ul>
@@ -82,6 +82,7 @@
 <script setup>
 import { ref, computed, reactive } from 'vue';
 import { useAuthStore } from '@/stores/authStore';
+import { useRouter } from 'vue-router';
 
 const isRegister = ref(false);
 const credentials = reactive({
@@ -90,6 +91,7 @@ const credentials = reactive({
 });
 
 const authStore = useAuthStore();
+const router = useRouter();
 
 const getClassArr = (isActive) => {
   if (isActive) return ['border-blue-600', 'text-blue-600'];
@@ -97,7 +99,7 @@ const getClassArr = (isActive) => {
 };
 
 const formTitle = computed(() => {
-  return isRegister.value ? 'Register' : 'Login';
+  return isRegister.value ? 'Sign Up' : 'Sign In';
 });
 
 const handleSubmit = () => {
@@ -107,17 +109,23 @@ const handleSubmit = () => {
   }
 
   if (isRegister.value) {
-    handleRegisterSubmit();
+    handleSignUpSubmit();
   } else {
-    handleLoginSubmit();
+    handleSignInSubmit();
   }
 };
 
-const handleRegisterSubmit = () => {
-  console.log('register submit');
+const handleSignUpSubmit = () => {
+  console.log('sign up submit');
   authStore.registerUser(credentials);
 };
-const handleLoginSubmit = () => {
-  console.log('login submit');
+
+const handleSignInSubmit = async () => {
+  console.log('sign in submit');
+  const user = await authStore.signInUser(credentials);
+  console.log(user);
+  if (authStore.isUserSignIn) {
+    router.push({ name: 'notes' });
+  }
 };
 </script>
