@@ -135,8 +135,5 @@ const handleSignInSubmit = async () => {
   // console.log('sign in submit');
   const user = await authStore.signInUser(credentials);
   // console.log(user);
-  if (authStore.isUserSignIn) {
-    router.push({ name: 'notes' });
-  }
 };
 </script>

@@ -9,6 +9,9 @@ import {
 } from 'firebase/auth';
 
 export const useAuthStore = defineStore('auth', () => {
+  /* external properties defined in main.js */
+  const intro = ref(null);
+  const router = ref(null);
   /* states */
   const currentUser = ref({});
   // const isUserSignIn = ref(false);
@@ -28,14 +31,16 @@ export const useAuthStore = defineStore('auth', () => {
   const initAuth = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // const uid = user.uid;
         currentUser.value.id = user.uid;
         currentUser.value.email = user.email;
-        console.log('user login', currentUser);
+        // console.log('user login', currentUser);
+        router.value.push({ name: 'notes' });
       } else {
         currentUser.value = {};
-        console.log('user logout', currentUser);
+        // console.log('user logout', currentUser);
       }
+      console.log('intro', intro.value);
+      // console.log('router', router.value);
     });
   };
 
@@ -82,6 +87,8 @@ export const useAuthStore = defineStore('auth', () => {
   };
 
   return {
+    intro /* also export external proporties */,
+    router,
     currentUser,
     isUserSignIn,
     userEmail,
