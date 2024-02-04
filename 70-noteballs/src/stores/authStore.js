@@ -1,19 +1,40 @@
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
 import { auth } from '@/js/firebase';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
 } from 'firebase/auth';
 
 export const useAuthStore = defineStore('auth', () => {
   /* states */
-  const isUserSignIn = ref(false);
+  const currentUser = ref({});
+  // const isUserSignIn = ref(false);
 
   /* getters */
+  const isUserSignIn = computed(() => {
+    const userObjLength = Object.keys(currentUser.value).length;
+    // console.log('user object length', userObjLength);
+    return userObjLength > 0;
+  });
 
   /* actions */
+  const initAuth = () => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // const uid = user.uid;
+        currentUser.value.id = user.uid;
+        currentUser.value.email = user.email;
+        console.log('user login', currentUser);
+      } else {
+        currentUser.value = {};
+        console.log('user logout', currentUser);
+      }
+    });
+  };
+
   const registerUser = (credentials) => {
     const { email, password } = credentials;
     createUserWithEmailAndPassword(auth, email, password)
@@ -35,7 +56,6 @@ export const useAuthStore = defineStore('auth', () => {
         password,
       );
       const user = userCredential.user;
-      isUserSignIn.value = true;
       // console.log(user);
       return user;
     } catch (error) {
@@ -47,7 +67,6 @@ export const useAuthStore = defineStore('auth', () => {
   const signOutUser = () => {
     signOut(auth)
       .then(() => {
-        isUserSignIn.value = false;
         console.log('user sign out');
       })
       .catch((error) => {
@@ -55,5 +74,5 @@ export const useAuthStore = defineStore('auth', () => {
       });
   };
 
-  return { isUserSignIn, registerUser, signInUser, signOutUser };
+  return { isUserSignIn, initAuth, registerUser, signInUser, signOutUser };
 });

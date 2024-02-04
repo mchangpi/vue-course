@@ -116,14 +116,14 @@ const handleSubmit = () => {
 };
 
 const handleSignUpSubmit = () => {
-  console.log('sign up submit');
+  // console.log('sign up submit');
   authStore.registerUser(credentials);
 };
 
 const handleSignInSubmit = async () => {
-  console.log('sign in submit');
+  // console.log('sign in submit');
   const user = await authStore.signInUser(credentials);
-  console.log(user);
+  // console.log(user);
   if (authStore.isUserSignIn) {
     router.push({ name: 'notes' });
   }

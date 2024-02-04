@@ -51,7 +51,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, onMounted } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import Note from '@/components/notes/Note.vue';
 import NoteAddEditForm from '@/components/notes/NoteAddEditForm.vue';
@@ -84,6 +84,10 @@ watch(
     console.log('delete note idx', Id, '(old idx:', prevId, ')');
   },
 );*/
+
+onMounted(() => {
+  noteStore.getNoteArr();
+});
 
 useWatchChars(newNoteContent, 40);
 
