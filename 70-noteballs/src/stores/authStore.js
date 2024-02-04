@@ -20,6 +20,10 @@ export const useAuthStore = defineStore('auth', () => {
     return userObjLength > 0;
   });
 
+  const userEmail = computed(() =>
+    isUserSignIn.value ? currentUser.value.email : 'Anonymous user',
+  );
+
   /* actions */
   const initAuth = () => {
     onAuthStateChanged(auth, (user) => {
@@ -44,6 +48,7 @@ export const useAuthStore = defineStore('auth', () => {
       })
       .catch((error) => {
         console.log(error.message);
+        alert(error.message);
       });
   };
 
@@ -60,6 +65,7 @@ export const useAuthStore = defineStore('auth', () => {
       return user;
     } catch (error) {
       console.log(error.message);
+      alert(error.message);
       return null;
     }
   };
@@ -71,8 +77,17 @@ export const useAuthStore = defineStore('auth', () => {
       })
       .catch((error) => {
         console.log(error.message);
+        alert(error.message);
       });
   };
 
-  return { isUserSignIn, initAuth, registerUser, signInUser, signOutUser };
+  return {
+    currentUser,
+    isUserSignIn,
+    userEmail,
+    initAuth,
+    registerUser,
+    signInUser,
+    signOutUser,
+  };
 });

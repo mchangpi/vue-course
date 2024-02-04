@@ -1,7 +1,9 @@
 <template>
   <div
+    v-if="!authStore.isUserSignIn"
     class="flex w-full flex-col items-center gap-10 border-b border-gray-200 text-center text-sm font-medium text-gray-500"
   >
+    <div class="text-xl">Hello Anonymous user, please Sign in or Sign up</div>
     <ul class="-mb-px flex flex-wrap">
       <li class="me-2">
         <a
@@ -75,6 +77,15 @@
           </button>
         </form>
       </a>
+    </div>
+  </div>
+
+  <div
+    v-else
+    class="flex w-full flex-col items-center gap-10 border-b border-gray-200 text-center text-sm font-medium text-gray-500"
+  >
+    <div class="text-xl">
+      Hello {{ authStore.userEmail }}, please Sign out first
     </div>
   </div>
 </template>

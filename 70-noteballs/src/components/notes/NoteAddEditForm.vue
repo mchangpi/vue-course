@@ -6,7 +6,7 @@
   >
     <div class="mb-2 w-full">
       <label class="mb-2 block text-lg font-medium text-gray-900"
-        >{{ title }}
+        >Please {{ title }}
       </label>
       <textarea
         v-model="modelProps"
@@ -32,7 +32,7 @@ const { bgColor } = defineProps({
   bgColor: { type: String, default: 'bg-cyan-300' },
 });
 
-const title = modelProps.value.trim().length > 0 ? 'Edit Note' : 'Add Note';
+const title = modelProps.value.trim().length > 0 ? 'edit note' : 'add note';
 
 const textareaRef = ref(null);
 

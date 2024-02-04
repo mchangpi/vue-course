@@ -9,6 +9,7 @@
           >Note Demo</span
         >
       </a>
+      <span class="text-lg">Hello, {{ authStore.userEmail }}</span>
       <button
         data-collapse-toggle="navbar-default"
         type="button"
@@ -75,7 +76,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import { useAuthStore } from '@/stores/authStore';
 
