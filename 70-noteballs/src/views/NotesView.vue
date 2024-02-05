@@ -51,7 +51,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import Note from '@/components/notes/Note.vue';
 import NoteAddEditForm from '@/components/notes/NoteAddEditForm.vue';
@@ -85,9 +85,11 @@ watch(
   },
 );*/
 
+/*
 onMounted(() => {
-  noteStore.getNoteArr();
+  noteStore.init();
 });
+*/
 
 useWatchChars(newNoteContent, 40);
 

@@ -8,39 +8,41 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth';
 
+import { useNoteStore } from './noteStore';
+
+const anonUser = { id: '-1', email: 'Anonymous user' };
+
 export const useAuthStore = defineStore('auth', () => {
   /* external properties defined in main.js */
   const intro = ref(null);
   const router = ref(null);
   /* states */
-  const currentUser = ref({});
-  // const isUserSignIn = ref(false);
+  const currentUser = ref({ id: anonUser.id, email: '' });
 
   /* getters */
   const isUserSignIn = computed(() => {
-    const userObjLength = Object.keys(currentUser.value).length;
-    // console.log('user object length', userObjLength);
-    return userObjLength > 0;
+    console.log('user id, anon user id:', currentUser.value.id, anonUser.id);
+    return currentUser.value.id !== anonUser.id;
   });
 
-  const userEmail = computed(() =>
-    isUserSignIn.value ? currentUser.value.email : 'Anonymous user',
-  );
-
   /* actions */
-  const initAuth = () => {
+  const init = () => {
+    const noteStore = useNoteStore();
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
         currentUser.value.id = user.uid;
         currentUser.value.email = user.email;
-        // console.log('user login', currentUser);
+        // console.log( 'user login', currentUser.value, 'is User sign in ', isUserSignIn.value,);
+
         router.value.push({ name: 'notes' });
       } else {
-        currentUser.value = {};
-        // console.log('user logout', currentUser);
+        currentUser.value.id = anonUser.id;
+        currentUser.value.email = anonUser.email;
+        // console.log('user logout', currentUser.value);
       }
-      console.log('intro', intro.value);
-      // console.log('router', router.value);
+      noteStore.init();
+      console.log('ext property intro:', intro.value);
     });
   };
 
@@ -78,7 +80,7 @@ export const useAuthStore = defineStore('auth', () => {
   const signOutUser = () => {
     signOut(auth)
       .then(() => {
-        console.log('user sign out');
+        // console.log('user sign out');
       })
       .catch((error) => {
         console.log(error.message);
@@ -91,8 +93,7 @@ export const useAuthStore = defineStore('auth', () => {
     router,
     currentUser,
     isUserSignIn,
-    userEmail,
-    initAuth,
+    init,
     registerUser,
     signInUser,
     signOutUser,

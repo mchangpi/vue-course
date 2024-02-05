@@ -12,6 +12,8 @@ import {
   orderBy,
 } from 'firebase/firestore';
 
+import { useAuthStore } from '@/stores/authStore';
+
 const initNoteArr = [
   /*
   { id: '1', content: 'note content 1' },
@@ -19,13 +21,9 @@ const initNoteArr = [
   */
 ];
 
-const notesCollectionRef = collection(db, 'notes');
+let notesCollectionRef = {};
 
-const notesCollectionQuery = query(
-  notesCollectionRef,
-  orderBy('date', 'desc'),
-  /* limit(100), */
-);
+let notesCollectionQuery = {};
 
 export const useNoteStore = defineStore('note', () => {
   /* states */
@@ -40,7 +38,7 @@ export const useNoteStore = defineStore('note', () => {
   });
 
   /* actions */
-  function getNoteArr() {
+  const getNoteArr = () => {
     loadingProgress.value = 1;
     const progressInterval = setInterval(() => {
       loadingProgress.value += 10;
@@ -57,18 +55,34 @@ export const useNoteStore = defineStore('note', () => {
       loadingProgress.value = 0;
       clearInterval(progressInterval);
     });
-  }
+  };
 
-  async function addNote(newNote) {
+  const init = () => {
+    const authStore = useAuthStore();
+    notesCollectionRef = collection(
+      db,
+      'users',
+      authStore.currentUser.id,
+      'notes',
+    );
+    notesCollectionQuery = query(
+      notesCollectionRef,
+      orderBy('date', 'desc'),
+      /* limit(100), */
+    );
+    getNoteArr();
+  };
+
+  const addNote = async (newNote) => {
     // console.log(newNote);
     await addDoc(notesCollectionRef, newNote);
-  }
+  };
 
-  function setNoteToDeleteId(id) {
+  const setNoteToDeleteId = (id) => {
     noteToDeleteId.value = id?.toString();
-  }
+  };
 
-  async function deleteNote() {
+  const deleteNote = async () => {
     // console.log('deleteNote id', noteToDeleteId.value);
     if (noteToDeleteId.value) {
       /* noteArr.value = noteArr.value.filter(
@@ -77,18 +91,18 @@ export const useNoteStore = defineStore('note', () => {
       await deleteDoc(doc(notesCollectionRef, noteToDeleteId.value));
     }
     noteToDeleteId.value = null;
-  }
+  };
 
-  function getNoteWithId(id) {
+  const getNoteWithId = (id) => {
     const foundNote = noteArr.value.find((note) => note.id === id?.toString());
     return foundNote || {};
-  }
+  };
 
-  async function updateNote(editedNote) {
+  const updateNote = async (editedNote) => {
     await updateDoc(doc(notesCollectionRef, editedNote.id), {
       content: editedNote.content,
     });
-  }
+  };
 
   return {
     noteArr,
@@ -96,6 +110,7 @@ export const useNoteStore = defineStore('note', () => {
     loadingProgress,
     totalNoteCount /* */,
     totalCharCount,
+    init,
     getNoteArr /* */,
     addNote,
     setNoteToDeleteId,

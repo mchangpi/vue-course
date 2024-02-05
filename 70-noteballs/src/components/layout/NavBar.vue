@@ -9,7 +9,7 @@
           >Note Demo</span
         >
       </a>
-      <span class="text-lg">Hello, {{ authStore.userEmail }}</span>
+      <span class="text-lg">Hello, {{ authStore.currentUser.email }}</span>
       <button
         data-collapse-toggle="navbar-default"
         type="button"

@@ -16,7 +16,7 @@ import { useAuthStore } from '@/stores/authStore';
 const authStore = useAuthStore();
 
 onMounted(() => {
-  authStore.initAuth();
+  authStore.init();
 });
 </script>
 
