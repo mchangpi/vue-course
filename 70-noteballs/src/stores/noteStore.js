@@ -61,9 +61,9 @@ export const useNoteStore = defineStore('note', () => {
     const authStore = useAuthStore();
     notesCollectionRef = collection(
       db,
-      'users',
+      'users' /* collection */,
       authStore.currentUser.id,
-      'notes',
+      'notes' /* collection */,
     );
     notesCollectionQuery = query(
       notesCollectionRef,

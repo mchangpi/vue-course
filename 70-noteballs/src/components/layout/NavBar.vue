@@ -34,12 +34,12 @@
       </button>
       <div class="w-full md:block md:w-auto" :class="{ hidden: !isShowMenu }">
         <ul
-          class="mt-4 flex flex-col rounded-lg bg-sky-100 p-4 font-medium md:mt-0 md:flex-row md:space-x-1 md:border-0 md:p-0 rtl:space-x-reverse"
+          class="mt-4 flex flex-col rounded-lg p-4 font-medium md:mt-0 md:flex-row md:space-x-1 md:border-0 md:p-0 rtl:space-x-reverse"
         >
           <li @click="() => handleSetMenuIdx(0)">
             <RouterLink
               to="/"
-              class="md:border-1 block rounded border border-gray-300 px-3 py-2 text-center md:px-4"
+              class="md:border-1 block rounded border-2 border-gray-300 px-3 py-2 text-center md:px-4"
               :class="getClassArr(0)"
               >Notes</RouterLink
             >
@@ -47,7 +47,7 @@
           <li @click="() => handleSetMenuIdx(1)">
             <RouterLink
               to="/stats"
-              class="md:border-1 block rounded border border-gray-300 px-3 py-2 text-center md:px-4"
+              class="md:border-1 block rounded border-2 border-gray-300 px-3 py-2 text-center md:px-4"
               :class="getClassArr(1)"
               >Stats</RouterLink
             >
@@ -62,7 +62,7 @@
                   }
                 }
               "
-              class="md:border-1 block rounded border border-gray-300 px-3 py-2 text-center md:ml-2 md:px-4"
+              class="md:border-1 block rounded border-2 border-gray-300 px-3 py-2 text-center md:px-4"
               :class="getClassArr(2)"
               >{{
                 authStore.isUserSignIn ? 'Sign Out' : 'Sign In / Up'
@@ -76,15 +76,17 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
 import { onClickOutside } from '@vueuse/core';
 import { useAuthStore } from '@/stores/authStore';
+
+const authStore = useAuthStore();
+const route = useRoute();
 
 const isShowMenu = ref(false);
 const activeIdx = ref(0);
 const navbarRef = ref(null);
-
-const authStore = useAuthStore();
 
 const handleShowMenu = () => {
   isShowMenu.value = !isShowMenu.value;
@@ -98,17 +100,30 @@ const handleSetMenuIdx = (idx) => {
 };
 
 const getClassArr = (idx) => {
-  if (2 === idx) {
+  /*if (2 === idx) {
     return ['text-white', 'bg-teal-300'];
-  } else if (activeIdx.value === idx) {
+  } else*/ if (activeIdx.value === idx) {
     return ['text-white', 'bg-blue-500'];
   } else {
-    return ['text-blue-700'];
+    return ['text-blue-700', 'bg-sky-100'];
   }
 };
 
 onClickOutside(navbarRef, (event) => {
   // console.log(event);
   isShowMenu.value = false;
+});
+
+onMounted(async () => {
+  await authStore.router.isReady();
+
+  for (let [idx, item] of Object.entries(authStore.router.getRoutes())) {
+    // console.log(idx, item.name, route.name);
+    if (item.name === route.name) {
+      /* 0 notes; 1 stats; 2 auth */
+      activeIdx.value = idx - 1;
+      console.log('idx', activeIdx.value, item.name);
+    }
+  }
 });
 </script>
