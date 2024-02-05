@@ -21,7 +21,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   /* getters */
   const isUserSignIn = computed(() => {
-    console.log('user id, anon user id:', currentUser.value.id, anonUser.id);
+    console.log('userId, anonId:', currentUser.value.id, anonUser.id);
     return currentUser.value.id !== anonUser.id;
   });
 
@@ -41,7 +41,15 @@ export const useAuthStore = defineStore('auth', () => {
         currentUser.value.email = anonUser.email;
         // console.log('user logout', currentUser.value);
       }
+      if (noteStore.unsubscribeSnapshot) {
+        console.log(
+          'Unsubscribe notes snapshot:',
+          noteStore.unsubscribeSnapshot,
+        );
+        noteStore.unsubscribeSnapshot();
+      }
       noteStore.init();
+
       console.log('ext property intro:', intro.value);
     });
   };

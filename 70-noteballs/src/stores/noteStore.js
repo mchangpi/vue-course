@@ -22,7 +22,6 @@ const initNoteArr = [
 ];
 
 let notesCollectionRef = {};
-
 let notesCollectionQuery = {};
 
 export const useNoteStore = defineStore('note', () => {
@@ -30,6 +29,7 @@ export const useNoteStore = defineStore('note', () => {
   const noteToDeleteId = ref(null);
   const noteArr = ref(initNoteArr);
   const loadingProgress = ref(0);
+  const unsubscribeSnapshot = ref(null);
 
   /* getters */
   const totalNoteCount = computed(() => noteArr.value.length);
@@ -38,25 +38,6 @@ export const useNoteStore = defineStore('note', () => {
   });
 
   /* actions */
-  const getNoteArr = () => {
-    loadingProgress.value = 1;
-    const progressInterval = setInterval(() => {
-      loadingProgress.value += 10;
-      // console.log(loadingProgress.value);
-    }, 200);
-
-    onSnapshot(notesCollectionQuery, (querySnapshot) => {
-      const newNoteArr = [];
-      querySnapshot.forEach((doc) => {
-        const { date, content } = doc.data();
-        newNoteArr.push({ id: doc.id, date, content });
-      });
-      noteArr.value = newNoteArr;
-      loadingProgress.value = 0;
-      clearInterval(progressInterval);
-    });
-  };
-
   const init = () => {
     const authStore = useAuthStore();
     notesCollectionRef = collection(
@@ -71,6 +52,28 @@ export const useNoteStore = defineStore('note', () => {
       /* limit(100), */
     );
     getNoteArr();
+  };
+
+  const getNoteArr = () => {
+    loadingProgress.value = 1;
+    const progressInterval = setInterval(() => {
+      loadingProgress.value += 10;
+      // console.log(loadingProgress.value);
+    }, 200);
+
+    unsubscribeSnapshot.value = onSnapshot(
+      notesCollectionQuery,
+      (querySnapshot) => {
+        const newNoteArr = [];
+        querySnapshot.forEach((doc) => {
+          const { date, content } = doc.data();
+          newNoteArr.push({ id: doc.id, date, content });
+        });
+        noteArr.value = newNoteArr;
+        loadingProgress.value = 0;
+        clearInterval(progressInterval);
+      },
+    );
   };
 
   const addNote = async (newNote) => {
@@ -108,6 +111,7 @@ export const useNoteStore = defineStore('note', () => {
     noteArr,
     noteToDeleteId,
     loadingProgress,
+    unsubscribeSnapshot,
     totalNoteCount /* */,
     totalCharCount,
     init,
