@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { useAuthStore } from '@/stores/authStore';
 import NotesView from '@/views/NotesView.vue';
 import EditView from '@/views/EditView.vue';
 import StatsView from '@/views/StatsView.vue';
@@ -22,6 +23,17 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+});
+
+router.beforeEach(async (to, from) => {
+  const authStore = useAuthStore();
+  // console.log('to', to);
+  if (authStore.currentUser.id === '-1' && to.name === 'stats') {
+    console.log(authStore.currentUser);
+    // return { name: 'stats' };
+    alert('Please Sign In First !!');
+    return false;
+  }
 });
 
 export default router;
