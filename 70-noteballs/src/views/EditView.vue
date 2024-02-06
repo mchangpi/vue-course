@@ -7,7 +7,7 @@
       <div class="flex w-full justify-end">
         <button
           type="button"
-          @click="$router.push({ name: 'notes' })"
+          @click="() => authStore.router.push({ name: 'notes' })"
           class="m-2 w-1/2 rounded-lg bg-slate-200 px-5 py-2.5 text-center text-sm font-medium text-slate-800 hover:bg-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-300"
         >
           Cancel
@@ -27,12 +27,12 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import NoteAddEditForm from '@/components/notes/NoteAddEditForm.vue';
 import { useNoteStore } from '@/stores/noteStore';
 
 const { params } = useRoute();
-const router = useRouter();
+// const router = useRouter();
 const noteStore = useNoteStore();
 const initialNote = noteStore.getNoteWithId(params.id);
 
@@ -46,6 +46,6 @@ const handleSaveNote = () => {
   // console.log(editedNote);
   noteStore.updateNote(editedNote);
 
-  router.push({ name: 'notes', params: {} });
+  authStore.router.push({ name: 'notes' });
 };
 </script>

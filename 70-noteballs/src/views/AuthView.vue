@@ -3,7 +3,7 @@
     v-if="!authStore.isUserSignIn"
     class="flex w-full flex-col items-center gap-10 border-b border-gray-200 text-center text-sm font-medium text-gray-500"
   >
-    <div class="text-xl">Hello Anonymous user, please Sign in or Sign up</div>
+    <div class="text-xl">Hello Anonymous user, Please Sign In or Sign Up</div>
     <ul class="-mb-px flex flex-wrap">
       <li class="me-2">
         <a
@@ -85,15 +85,21 @@
     class="flex w-full flex-col items-center gap-10 border-b border-gray-200 text-center text-sm font-medium text-gray-500"
   >
     <div class="text-xl">
-      Hello {{ authStore.currentUser.email }}, please Sign out first
+      Hello {{ authStore.currentUser.email }}, Do you want to Sign Out ?
     </div>
+    <button
+      type="button"
+      @click="handelSignOut"
+      class="w-1/2 rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+    >
+      Sign Out
+    </button>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, reactive } from 'vue';
 import { useAuthStore } from '@/stores/authStore';
-import { useRouter } from 'vue-router';
 
 const isRegister = ref(false);
 const credentials = reactive({
@@ -102,7 +108,6 @@ const credentials = reactive({
 });
 
 const authStore = useAuthStore();
-const router = useRouter();
 
 const getClassArr = (isActive) => {
   if (isActive) return ['border-blue-600', 'text-blue-600'];
@@ -113,7 +118,7 @@ const formTitle = computed(() => {
   return isRegister.value ? 'Sign Up' : 'Sign In';
 });
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
   if (!credentials.email || !credentials.password) {
     alert('Please enter email and password');
     return;
@@ -122,7 +127,7 @@ const handleSubmit = () => {
   if (isRegister.value) {
     handleSignUpSubmit();
   } else {
-    handleSignInSubmit();
+    await handleSignInSubmit();
   }
 };
 
@@ -132,8 +137,15 @@ const handleSignUpSubmit = () => {
 };
 
 const handleSignInSubmit = async () => {
-  // console.log('sign in submit');
   const user = await authStore.signInUser(credentials);
   // console.log(user);
+
+  authStore.router.push({ name: 'notes' });
+};
+
+const handelSignOut = () => {
+  console.log('sign out');
+
+  authStore.signOutUser();
 };
 </script>

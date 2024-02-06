@@ -12,18 +12,28 @@ import { useNoteStore } from './noteStore';
 
 const anonUser = { id: '-1', email: 'Anonymous user' };
 
+export const ROUTE_ENEM = {
+  NOTES: Symbol('notes'),
+  STATS: Symbol('stats'),
+  AUTH: Symbol('auth'),
+};
+
 export const useAuthStore = defineStore('auth', () => {
   /* external properties defined in main.js */
   const intro = ref(null);
   const router = ref(null);
+
   /* states */
   const currentUser = ref({ id: anonUser.id, email: '' });
+  const navTabIdx = ref(ROUTE_ENEM.NOTES);
 
   /* getters */
   const isUserSignIn = computed(() => {
     console.log('userId, anonId:', currentUser.value.id, anonUser.id);
     return currentUser.value.id !== anonUser.id;
   });
+
+  const activeTabIdx = computed(() => navTabIdx);
 
   /* actions */
   const init = () => {
@@ -34,8 +44,6 @@ export const useAuthStore = defineStore('auth', () => {
         currentUser.value.id = user.uid;
         currentUser.value.email = user.email;
         // console.log( 'user login', currentUser.value, 'is User sign in ', isUserSignIn.value,);
-
-        router.value.push({ name: 'notes' });
       } else {
         currentUser.value.id = anonUser.id;
         currentUser.value.email = anonUser.email;
@@ -77,6 +85,7 @@ export const useAuthStore = defineStore('auth', () => {
       );
       const user = userCredential.user;
       // console.log(user);
+
       return user;
     } catch (error) {
       console.log(error.message);

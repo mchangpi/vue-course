@@ -31,7 +31,7 @@ router.beforeEach(async (to, from) => {
   if (authStore.currentUser.id === '-1' && to.name === 'stats') {
     console.log(authStore.currentUser);
     // return { name: 'stats' };
-    alert('Please Sign In First !!');
+    alert('Please SIGN IN First !!');
     return false;
   }
 });

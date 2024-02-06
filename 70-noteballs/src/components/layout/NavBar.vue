@@ -36,34 +36,27 @@
         <ul
           class="mt-4 flex flex-col rounded-lg p-4 font-medium md:mt-0 md:flex-row md:space-x-1 md:border-0 md:p-0 rtl:space-x-reverse"
         >
-          <li @click="() => handleSetMenuIdx()">
+          <li @click="() => handleSwitchTab()">
             <RouterLink
               to="/"
               class="md:border-1 block rounded border-2 border-gray-300 px-3 py-2 text-center md:px-4"
-              :class="getClassArr(0)"
+              :class="navTabClassObj['notes']"
               >Notes</RouterLink
             >
           </li>
-          <li @click="() => handleSetMenuIdx()">
+          <li @click="() => handleSwitchTab()">
             <RouterLink
               to="/stats"
               class="md:border-1 block rounded border-2 border-gray-300 px-3 py-2 text-center md:px-4"
-              :class="getClassArr(1)"
+              :class="navTabClassObj['stats']"
               >Stats</RouterLink
             >
           </li>
-          <li @click="() => handleSetMenuIdx()">
+          <li @click="() => handleSwitchTab()">
             <RouterLink
               to="/auth"
-              @click="
-                () => {
-                  if (authStore.isUserSignIn) {
-                    authStore.signOutUser();
-                  }
-                }
-              "
               class="md:border-1 block rounded border-2 border-gray-300 px-3 py-2 text-center md:px-4"
-              :class="getClassArr(2)"
+              :class="navTabClassObj['auth']"
               >{{
                 authStore.isUserSignIn ? 'Sign Out' : 'Sign In / Up'
               }}</RouterLink
@@ -76,16 +69,13 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { onMounted, ref, computed } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import { useAuthStore } from '@/stores/authStore';
 
 const authStore = useAuthStore();
-const route = useRoute();
 
 const isShowMenu = ref(false);
-const activeIdx = ref(0);
 const navbarRef = ref(null);
 
 const routeArr = Object.entries(authStore.router.getRoutes())
@@ -95,34 +85,29 @@ const routeArr = Object.entries(authStore.router.getRoutes())
     return item.name;
   });
 
+const navTabClassObj = computed(() => {
+  const { currentRoute: route } = authStore.router;
+  const classObj = {};
+  // console.log(route.value.name);
+
+  for (let item of Object.values(routeArr)) {
+    if (item === route.value.name) {
+      classObj[item] = ['text-white', 'bg-blue-500'];
+    } else {
+      classObj[item] = ['text-blue-700', 'bg-sky-100'];
+    }
+  }
+
+  return classObj;
+});
+
 const handleShowMenu = () => {
   isShowMenu.value = !isShowMenu.value;
   console.log('show menu', isShowMenu.value);
 };
 
-const handleSetMenuIdx = async () => {
-  await authStore.router.isReady();
-  // console.log('route', route.name);
-  for (let [idx, item] of Object.entries(routeArr)) {
-    if (item === route.name) {
-      /* 0 notes; 1 stats; 2 auth */
-      // console.log(idx, item, route.name);
-      activeIdx.value = Number(idx);
-    }
-  }
+const handleSwitchTab = () => {
   isShowMenu.value = false;
-};
-
-const getClassArr = (idx) => {
-  let tabClass = [];
-  // console.log(idx, activeIdx.value);
-  if (activeIdx.value === idx) {
-    tabClass = ['text-white', 'bg-blue-500'];
-    // console.log(tabClass);
-  } else {
-    tabClass = ['text-blue-700', 'bg-sky-100'];
-  }
-  return tabClass;
 };
 
 onClickOutside(navbarRef, (event) => {
@@ -131,6 +116,6 @@ onClickOutside(navbarRef, (event) => {
 });
 
 onMounted(async () => {
-  await handleSetMenuIdx();
+  // await handleSwitchTab();
 });
 </script>
