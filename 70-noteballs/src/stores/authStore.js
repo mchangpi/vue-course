@@ -12,12 +12,6 @@ import { useNoteStore } from './noteStore';
 
 const anonUser = { id: '-1', email: 'Anonymous user' };
 
-export const ROUTE_ENEM = {
-  NOTES: Symbol('notes'),
-  STATS: Symbol('stats'),
-  AUTH: Symbol('auth'),
-};
-
 export const useAuthStore = defineStore('auth', () => {
   /* external properties defined in main.js */
   const intro = ref(null);
@@ -25,15 +19,12 @@ export const useAuthStore = defineStore('auth', () => {
 
   /* states */
   const currentUser = ref({ id: anonUser.id, email: '' });
-  const navTabIdx = ref(ROUTE_ENEM.NOTES);
 
   /* getters */
   const isUserSignIn = computed(() => {
     console.log('userId, anonId:', currentUser.value.id, anonUser.id);
     return currentUser.value.id !== anonUser.id;
   });
-
-  const activeTabIdx = computed(() => navTabIdx);
 
   /* actions */
   const init = () => {
@@ -57,7 +48,6 @@ export const useAuthStore = defineStore('auth', () => {
         noteStore.unsubscribeSnapshot();
       }
       noteStore.init();
-
       console.log('ext property intro:', intro.value);
     });
   };

@@ -4,9 +4,13 @@
       class="container mx-auto flex flex-wrap items-center justify-between px-2"
       ref="navbarRef"
     >
-      <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+      <a
+        href="https://www.cakeresume.com/mchangpi"
+        target="_blank"
+        class="flex items-center space-x-3 rtl:space-x-reverse"
+      >
         <span class="self-center whitespace-nowrap text-2xl font-semibold"
-          >Note Demo</span
+          >Milton Notes</span
         >
       </a>
       <span class="text-lg">Hello, {{ authStore.currentUser.email }}</span>

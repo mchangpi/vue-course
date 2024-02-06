@@ -29,10 +29,11 @@
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import NoteAddEditForm from '@/components/notes/NoteAddEditForm.vue';
+import { useAuthStore } from '@/stores/authStore';
 import { useNoteStore } from '@/stores/noteStore';
 
 const { params } = useRoute();
-// const router = useRouter();
+const authStore = useAuthStore();
 const noteStore = useNoteStore();
 const initialNote = noteStore.getNoteWithId(params.id);
 

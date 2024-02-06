@@ -36,7 +36,7 @@
     </div>
   </div>
   <template v-else>
-    <Note v-for="note of noteStore.noteArr" :key="note.id" :note="note" />
+    <NoteItem v-for="note of noteStore.noteArr" :key="note.id" :note="note" />
     <div
       v-if="!noteStore.noteArr.length"
       class="py-6 text-center font-mono text-3xl font-light text-slate-500"
@@ -53,7 +53,7 @@
 <script setup>
 import { ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-import Note from '@/components/notes/Note.vue';
+import NoteItem from '@/components/notes/NoteItem.vue';
 import NoteAddEditForm from '@/components/notes/NoteAddEditForm.vue';
 import NoteDeleteModal from '@/components/notes/NoteDeleteModal.vue';
 import { useNoteStore } from '@/stores/noteStore';
@@ -76,20 +76,6 @@ const handleAddNote = () => {
   newNoteContent.value = '';
   noteAddEditRef.value.focusTextarea();
 };
-
-/*
-watch(
-  () => noteStore.deleteNoteId,
-  (Id, prevId) => {
-    console.log('delete note idx', Id, '(old idx:', prevId, ')');
-  },
-);*/
-
-/*
-onMounted(() => {
-  noteStore.init();
-});
-*/
 
 useWatchChars(newNoteContent, 40);
 
