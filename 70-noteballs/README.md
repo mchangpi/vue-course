@@ -5,7 +5,10 @@ https://www.cakeresume.com/mchangpi
 
 1\. 此專案為 Udemy 網路課程  
 <a href="https://www.udemy.com/course/vue-js-3-composition-api/" target="_blank">Vue JS 3: Composition API (with Pinia, Firebase 9 & Vite)</a>  
-中的一個專案練習: Notes 記事本網站
+中的一個專案練習  
+
+Notes 記事本網站:  
+https://notestore-ebeec.web.app/  
 
 相關程式碼:  
 https://github.com/mchangpi/vue-course/tree/main/70-noteballs
